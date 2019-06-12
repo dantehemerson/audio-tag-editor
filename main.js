@@ -1,10 +1,18 @@
-const fs = require('fs')
+const { readFile } = require('./src/lib/fs')
 const NodeID3 = require('node-id3')
 
-///async function readAudioFile(filename) {}
+const FILENAME_TEST = './files/audio.mp3'
 
-let file = './files/audio.mp3'
+async function readAudioFile(filename) {
+  const file = await readFile(filename)
+  return file
+}
 
-let tags = NodeID3.read(file)
+// let tags = NodeID3.read(file)
 
-console.log(tags)
+async function main() {
+  const { buffer } = await readAudioFile(FILENAME_TEST)
+  console.log(buffer)
+}
+
+main()
