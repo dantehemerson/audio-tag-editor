@@ -1,7 +1,10 @@
-const NodeID3 = require("node-id3");
+const fs = require('fs')
+const NodeID3 = require('node-id3')
 
-let file = "./files/audio.mp3";
+///async function readAudioFile(filename) {}
 
-let tags = NodeID3.read(file);
+let file = './files/audio.mp3'
 
-console.log(tags);
+let tags = NodeID3.read(file)
+
+console.log(tags)
