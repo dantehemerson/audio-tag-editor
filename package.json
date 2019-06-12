@@ -1,0 +1,12 @@
+{
+  "name": "audio-tag-editor",
+  "version": "1.0.0",
+  "description": "A simple tag editor",
+  "main": "main.js",
+  "repository": "git@github.com:dantehemerson/audio-tag-editor.git",
+  "author": "Dante Calderon <dantehemerson@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "node-id3": "^0.1.7"
+  }
+}
