@@ -4,15 +4,27 @@ const NodeID3 = require('node-id3')
 const FILENAME_TEST = './files/audio.mp3'
 
 async function readAudioFile(filename) {
-  const file = await readFile(filename)
+  let file
+  try {
+    file = await readFile(filename)
+  } catch (e) {
+    console.log(`Can't read file`, e)
+  }
   return file
 }
 
-// let tags = NodeID3.read(file)
+async function getTags(filename) {
+  try {
+    const file = await readFile(filename)
+    return NodeID3.read(file)
+  } catch (e) {
+    console.log(e)
+  }
+}
 
 async function main() {
-  const { buffer } = await readAudioFile(FILENAME_TEST)
-  console.log(buffer)
+  const tags = await getTags(FILENAME_TEST)
+  console.log(tags)
 }
 
 main()
