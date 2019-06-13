@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "restify-await-promise": "^2.1.0"
+  }
+}
