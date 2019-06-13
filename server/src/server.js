@@ -31,11 +31,8 @@ server.use(restify.plugins.multipartBodyParser())
 server.get('/hello/:name', respond)
 
 server.post('/upload', async function(req, res, next) {
-  console.log(`El archivo de audio es `)
-  console.log(req.files)
   const uploadedFile = req.files.audio_file
   const filename = uploadedFile.path
-  console.log(`El nombre del archivo es `, filename)
   const tags = await getTags(filename)
   res.json({
     tags,
