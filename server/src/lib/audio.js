@@ -1,4 +1,4 @@
-const { readFile, writeFile } = require('./src/lib/fs')
+const { readFile, writeFile } = require('./fs')
 const NodeID3 = require('node-id3')
 
 const FILENAME_TEST = './files/audio.mp3'
@@ -34,23 +34,29 @@ async function saveFile(buffer, filename) {
   }
 }
 
-async function main() {
-  const tags = await getTags(FILENAME_TEST)
-  console.log(`Old tags: `)
-  console.log(tags)
+// async function main() {
+//   const tags = await getTags(FILENAME_TEST)
+//   console.log(`Old tags: `)
+//   console.log(tags)
 
-  console.log(`Tags for update`)
-  const newTags = {
-    title: `Title ${Math.random() * 10}`,
-  }
-  console.log(newTags)
+//   console.log(`Tags for update`)
+//   const newTags = {
+//     title: `Title ${Math.random() * 10}`,
+//   }
+//   console.log(newTags)
 
-  const resUpdate = await updateTags(FILENAME_TEST, newTags)
-  console.log(`The new tags are: `)
-  console.log(NodeID3.read(resUpdate))
+//   const resUpdate = await updateTags(FILENAME_TEST, newTags)
+//   console.log(`The new tags are: `)
+//   console.log(NodeID3.read(resUpdate))
 
-  console.log(`Guardando archivo.`)
-  console.log(await saveFile(resUpdate))
+//   console.log(`Guardando archivo.`)
+//   console.log(await saveFile(resUpdate))
+// }
+
+// main()
+
+module.exports = {
+  getTags,
+  updateTags,
+  saveFile,
 }
-
-main()
