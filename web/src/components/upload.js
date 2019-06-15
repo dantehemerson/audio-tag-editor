@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Dropzone from './Dropzone'
 import './upload.css'
 import Progress from './progress'
+import Edit from './Edit'
 
 class Upload extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class Upload extends Component {
       uploadProgress: {},
       successfullUploaded: false,
       finishRes: false,
+      tags: null,
     }
 
     this.onFilesAdded = this.onFilesAdded.bind(this)
@@ -64,8 +66,8 @@ class Upload extends Component {
         resolve(req.response)
       })
 
-      req.onload = function holo() {
-        this.setState({ finishRes: true })
+      req.onload = function onload() {
+        this.setState({ finishRes: true, tags: JSON.parse(req.response) })
       }.bind(this)
 
       req.upload.addEventListener('error', event => {
@@ -129,7 +131,7 @@ class Upload extends Component {
   render() {
     const { finishRes } = this.state
     return finishRes ? (
-      <div>Finializo la carga</div>
+      <Edit data={this.state.tags} />
     ) : (
       <div className="Upload">
         <span className="Title">Upload Files</span>
