@@ -6,8 +6,16 @@
   "repository": "git@github.com:dantehemerson/audio-tag-editor.git",
   "author": "Dante Calderon <dantehemerson@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "nodemon start src/server.js"
+  },
   "dependencies": {
-    "node-id3": "^0.1.7",
-    "restify": "^8.3.3"
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "formidable": "^1.2.1",
+    "node-id3": "^0.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
   }
 }

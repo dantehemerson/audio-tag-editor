@@ -1,45 +1,34 @@
-const restify = require('restify')
-const NodeID3 = require('node-id3')
+const express = require('express')
+const cors = require('cors')
+const IncomingForm = require('formidable').IncomingForm
+
 const { getTags } = require('./lib/audio')
-const restifyPromise = require('restify-await-promise')
 
-const server = restify.createServer()
+const PORT = process.env.PORT || 8080
 
-//Allows you to manipulate the errors before restify does its work
-const alwaysBlameTheUserErrorTransformer = {
-  transform: function(exceptionThrownByRoute) {
-    //Always blame the user
-    exceptionThrownByRoute.statusCode = 400
-    return exceptionThrownByRoute
-  },
+const server = express()
+
+const corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200,
 }
 
-const options = {
-  logger: console.log, //Optional: Will automatically log exceptions
-  errorTransformer: alwaysBlameTheUserErrorTransformer, //Optional: Lets you add status codes
-}
+server.use(cors(corsOptions))
 
-restifyPromise.install(server, options)
-
-function respond(req, res, next) {
-  res.send('hello ' + req.params.name)
-  next()
-}
-
-server.use(restify.plugins.multipartBodyParser())
-
-server.get('/hello/:name', respond)
-
-server.post('/upload', async function(req, res, next) {
-  const uploadedFile = req.files.audio_file
-  const filename = uploadedFile.path
-  const tags = await getTags(filename)
-  res.json({
-    tags,
-  })
-  next()
+server.post('/upload', function(req, res) {
+  res.send(`Hola Mundo`)
 })
+// server.use(
+// server.post('/get-tags', async function(req, res, next) {
+//   const uploadedFile = req.files.audio_file
+//   const filename = uploadedFile.path
+//   const tags = await getTags(filename)
+//   res.json({
+//     tags,
+//   })
+//   next()
+// })
 
-server.listen(8080, function() {
-  console.log(`${server.name} listening at ${server.url}`)
+server.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`)
 })
