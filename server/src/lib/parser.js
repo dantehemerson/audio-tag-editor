@@ -21,8 +21,10 @@ function parseDataFromAudio(objectFile) {
     'year',
     'genre',
     'trackNumber',
+    'image',
   ])
 
+  // return objectFile
   return {
     ...fileID3Data,
     ...fileData,
