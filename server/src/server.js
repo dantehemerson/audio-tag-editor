@@ -16,7 +16,14 @@ const corsOptions = {
 server.use(cors(corsOptions))
 
 server.post('/upload', function(req, res) {
-  res.send(`Hola Mundo`)
+  const form = new IncomingForm()
+  form.on('file', (field, file) => {
+    console.log('ONNNNN FILEEEE', file.path)
+  })
+  form.on('end', () => {
+    res.json()
+  })
+  form.parse(req)
 })
 // server.use(
 // server.post('/get-tags', async function(req, res, next) {
