@@ -23,10 +23,11 @@ server.post('/upload', function(req, res) {
     const image = t.image
 
     const imagebase64 = Buffer.from(image.imageBuffer, 'base64')
-    tags = {
-      ...parseDataFromAudio(t),
-      imagebase64,
-    }
+    const parsedData = parseDataFromAudio(t),
+      tags = {
+        ...parsedData,
+        imagebase64,
+      }
   })
   form.on('end', () => {
     res.json(tags)
