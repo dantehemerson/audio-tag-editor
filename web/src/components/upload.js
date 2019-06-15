@@ -11,6 +11,7 @@ class Upload extends Component {
       uploading: false,
       uploadProgress: {},
       successfullUploaded: false,
+      finishRes: false,
     }
 
     this.onFilesAdded = this.onFilesAdded.bind(this)
@@ -63,9 +64,9 @@ class Upload extends Component {
         resolve(req.response)
       })
 
-      req.onload = function() {
-        console.log(`Term,ino putito`, req.status, req.response)
-      }
+      req.onload = function holo() {
+        this.setState({ finishRes: true })
+      }.bind(this)
 
       req.upload.addEventListener('error', event => {
         const copy = { ...this.state.uploadProgress }
@@ -126,7 +127,10 @@ class Upload extends Component {
   }
 
   render() {
-    return (
+    const { finishRes } = this.state
+    return finishRes ? (
+      <div>Finializo la carga</div>
+    ) : (
       <div className="Upload">
         <span className="Title">Upload Files</span>
         <div className="Content">
