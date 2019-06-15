@@ -3,7 +3,6 @@ const cors = require('cors')
 const IncomingForm = require('formidable').IncomingForm
 const { getTags } = require('./lib/audio')
 const { parseDataFromAudio } = require('./lib/parser')
-const fs = require('fs')
 
 const PORT = process.env.PORT || 8080
 
