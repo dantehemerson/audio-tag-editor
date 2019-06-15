@@ -21,7 +21,7 @@ function parseDataFromAudio(objectFile) {
     'year',
     'genre',
     'trackNumber',
-    'image',
+    // 'image',
   ])
 
   // return objectFile

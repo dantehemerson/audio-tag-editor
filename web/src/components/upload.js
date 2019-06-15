@@ -63,6 +63,10 @@ class Upload extends Component {
         resolve(req.response)
       })
 
+      req.onload = function() {
+        console.log(`Term,ino putito`, req.status, req.response)
+      }
+
       req.upload.addEventListener('error', event => {
         const copy = { ...this.state.uploadProgress }
         copy[file.name] = { state: 'error', percentage: 0 }
