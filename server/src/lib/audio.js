@@ -1,11 +1,12 @@
 const { readFile, writeFile } = require('./fs')
+const { readFileSync } = require('fs')
 const NodeID3 = require('node-id3')
 
 const FILENAME_TEST = './files/audio.mp3'
 
-async function getTags(filename) {
+function getTags(filename) {
   try {
-    const file = await readFile(filename)
+    const file = readFileSync(filename)
     return NodeID3.read(file)
   } catch (e) {
     console.log(e)

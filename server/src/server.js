@@ -1,7 +1,6 @@
 const express = require('express')
 const cors = require('cors')
 const IncomingForm = require('formidable').IncomingForm
-
 const { getTags } = require('./lib/audio')
 
 const PORT = process.env.PORT || 8080
@@ -17,24 +16,16 @@ server.use(cors(corsOptions))
 
 server.post('/upload', function(req, res) {
   const form = new IncomingForm()
+  let tags = {}
   form.on('file', (field, file) => {
-    console.log('ONNNNN FILEEEE', file.path)
+    const t = getTags(file.path)
+    tags = t
   })
   form.on('end', () => {
-    res.json()
+    res.json(tags)
   })
   form.parse(req)
 })
-// server.use(
-// server.post('/get-tags', async function(req, res, next) {
-//   const uploadedFile = req.files.audio_file
-//   const filename = uploadedFile.path
-//   const tags = await getTags(filename)
-//   res.json({
-//     tags,
-//   })
-//   next()
-// })
 
 server.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`)
