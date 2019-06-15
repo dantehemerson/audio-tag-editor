@@ -24,8 +24,8 @@ function parseDataFromAudio(objectFile) {
   ])
 
   return {
-    fileID3Data,
-    fileData,
+    ...fileID3Data,
+    ...fileData,
   }
 }
 
