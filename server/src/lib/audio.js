@@ -3,18 +3,10 @@ const NodeID3 = require('node-id3')
 
 const FILENAME_TEST = './files/audio.mp3'
 
-const NodeID3ReadFile = file => {
-  return new Promise((resolve, reject) => {
-    NodeID3.read(file, (err, tags) => {
-      resolve(tags)
-    })
-  })
-}
-
 async function getTags(filename) {
   try {
     const file = await readFile(filename)
-    return await NodeID3ReadFile(file)
+    return NodeID3.read(file)
   } catch (e) {
     console.log(e)
   }
