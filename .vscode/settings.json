@@ -1,3 +1,10 @@
 {
+  "files.exclude": {
+    "**/dist": true,
+    "**/node_modules": true,
+    "**/yarn.lock": true,
+    "web/public": true,
+    "**/.cache": true
+  },
   "editor.formatOnSave": true
 }
