@@ -20,13 +20,19 @@ server.post('/upload', function uploadAndGetTags(req, res) {
     const fileId = saveFile(fileBuffer)
     const t = getTags(fileBuffer)
     const image = t.image
-    const imagebase64 = image.imageBuffer.toString('base64')
+    let imagebase64 = undefined
+    if (image) {
+      imagebase64 = image.imageBuffer.toString('base64')
+    }
+
     const parsedData = parseDataFromAudio(t)
     tags = {
       id: fileId, // fileId to update
       ...parsedData,
-      image: imagebase64,
+      image: imagebase64
     }
+    console.log(`Los tags son: `)
+    console.log(tags)
   })
   form.on('end', () => {
     res.json(tags)
@@ -38,13 +44,13 @@ server.post('/update', function updateFileTags(req, res) {
   const body = req.body
   if (!body['id']) {
     res.json({
-      error: `Id not found`,
+      error: `Id not found`
     })
   }
   const tags = body.tags
   if (!tags) {
     res.json({
-      error: `No hay tags para actualizar.`,
+      error: `No hay tags para actualizar.`
     })
   }
 
@@ -53,11 +59,11 @@ server.post('/update', function updateFileTags(req, res) {
     const fileBuffer = updateTags(file, tags)
     const fileId = saveFile(fileBuffer) // el id que se usara para descargar
     res.json({
-      id: fileId,
+      id: fileId
     })
   } catch (e) {
     res.json({
-      error: `File not exists.`,
+      error: `File not exists.`
     })
   }
 })
@@ -70,7 +76,7 @@ server.get('/download/:id', function downloadFile(req, res) {
     res.download(`./bucket/${fileId}.mp3`)
   } else {
     res.status(404).json({
-      message: `File not found.`,
+      message: `File not found.`
     })
   }
 })
