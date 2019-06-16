@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const { readFileSync, writeFileSync } = require('fs')
+const { readFileSync, writeFileSync, existsSync } = require('fs')
 const IncomingForm = require('formidable').IncomingForm
 const { getTags, saveFile, updateTags } = require('./lib/audio')
 const { parseDataFromAudio } = require('./lib/parser')
@@ -66,8 +66,16 @@ server.post('/update', function updateFileTags(req, res) {
   }
 })
 
-server.post('/download', function downloadFile(req, res) {
-  res.download()
+server.get('/download/:fileId', function downloadFile(req, res) {
+  const fileId = req.params.fileId
+  const filepath = `./bucket/${fileId}.mp3`
+  if (existsSync(filepath)) {
+    res.download(`./bucket/${fileId}.mp3`)
+  } else {
+    res.status(404).json({
+      message: `File not found.`,
+    })
+  }
 })
 
 server.listen(PORT, () => {
