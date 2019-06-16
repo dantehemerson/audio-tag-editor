@@ -95,7 +95,6 @@ export default class Dropzone extends React.Component {
       >
         <FileInput
           ref={this.fileInputRef}
-          className="FileInput"
           type="file"
           multiple
           onChange={this.onFilesAdded}
