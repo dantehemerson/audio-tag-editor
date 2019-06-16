@@ -1,33 +1,30 @@
 const { readFile, writeFile } = require('./fs')
-const { readFileSync } = require('fs')
+const { readFileSync, writeFileSync } = require('fs')
 const NodeID3 = require('node-id3')
 
-const FILENAME_TEST = './files/audio.mp3'
-
-function getTags(filename) {
+function getTags(fileBuffer) {
   try {
-    const file = readFileSync(filename)
-    return NodeID3.read(file)
+    return NodeID3.read(fileBuffer)
   } catch (e) {
     console.log(e)
   }
 }
 
-async function updateTags(filename, tags) {
+function updateTags(filename, tags) {
   try {
-    const file = await readFile(filename)
+    const file = readFileSync(filename)
     return NodeID3.update(tags, file)
   } catch (e) {
     console.log(`Cannt update tags.`, e)
   }
 }
 
-async function saveFile(buffer, filename) {
-  filename =
-    filename || `./result/generated-ate-${new Date().toISOString()}.mp3`
+function saveFile(buffer) {
+  const id = `dxnt-${new Date().toISOString()}`
+  filename = `./bucket/${id}.mp3`
   try {
-    const res = await writeFile(filename, buffer)
-    return res
+    writeFileSync(filename, buffer)
+    return id
   } catch (e) {
     console.log(`Error on save file`, e)
   } finally {

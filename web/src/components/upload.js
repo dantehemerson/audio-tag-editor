@@ -130,6 +130,7 @@ class Upload extends Component {
 
   render() {
     const { finishRes } = this.state
+    console.log(`Los tags son`, this.state.tags)
     return finishRes ? (
       <Edit data={this.state.tags} />
     ) : (
