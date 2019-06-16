@@ -1,5 +1,4 @@
-const { readFile, writeFile } = require('./fs')
-const { readFileSync, writeFileSync } = require('fs')
+const { writeFileSync } = require('fs')
 const NodeID3 = require('node-id3')
 
 function getTags(fileBuffer) {
