@@ -1,9 +1,8 @@
 const express = require('express')
 const cors = require('cors')
 const { readFileSync, writeFileSync } = require('fs')
-
 const IncomingForm = require('formidable').IncomingForm
-const { getTags, saveFile } = require('./lib/audio')
+const { getTags, saveFile, updateTags } = require('./lib/audio')
 const { parseDataFromAudio } = require('./lib/parser')
 
 const PORT = process.env.PORT || 8080
@@ -39,8 +38,36 @@ server.post('/upload', function uploadAndGetTags(req, res) {
   form.parse(req)
 })
 
-server.post('/update', function updateTags(req, res) {
-  res.json({ actualizado: 'Se actualizaron los valores' })
+server.post('/update', function updateFileTags(req, res) {
+  const body = req.body
+  if (!body['id']) {
+    res.json({
+      error: `Id not found`,
+    })
+  }
+  const tags = body.tags
+  if (!tags) {
+    res.json({
+      error: `No hay tags para actualizar.`,
+    })
+  }
+
+  try {
+    const file = readFileSync(filename)
+    const fileBuffer = updateTags(file, tags)
+    const fileId = saveFile(fileBuffer) // el id que se usara para descargar
+    res.json({
+      id: fileId,
+    })
+  } catch (e) {
+    res.json({
+      error: `File not exists.`,
+    })
+  }
+})
+
+server.post('/download', function downloadFile(req, res) {
+  res.download()
 })
 
 server.listen(PORT, () => {

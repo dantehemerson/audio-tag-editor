@@ -10,10 +10,9 @@ function getTags(fileBuffer) {
   }
 }
 
-function updateTags(filename, tags) {
+function updateTags(fileBuffer, tags) {
   try {
-    const file = readFileSync(filename)
-    return NodeID3.update(tags, file)
+    return NodeID3.update(tags, fileBuffer)
   } catch (e) {
     console.log(`Cannt update tags.`, e)
   }
