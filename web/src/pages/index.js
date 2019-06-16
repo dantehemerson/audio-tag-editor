@@ -1,8 +1,8 @@
 import React from 'react'
+import Edit from '../components/Edit'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import Upload from '../components/upload'
-import Edit from '../components/Edit'
 import { STEPPER } from '../constants'
 
 class IndexPage extends React.Component {
