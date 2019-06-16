@@ -11,8 +11,8 @@ class IndexPage extends React.Component {
     tags: {}
   }
 
-  handleUploaded(uploaded) {
-    this.setState({ stepper })
+  handleUploaded(stepper, tags) {
+    this.setState({ stepper, tags })
   }
 
   renderStep() {
