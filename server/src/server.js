@@ -66,9 +66,10 @@ server.post('/update', function updateFileTags(req, res) {
   }
 })
 
-server.get('/download/:fileId', function downloadFile(req, res) {
-  const fileId = req.params.fileId
+server.get('/download/:id', function downloadFile(req, res) {
+  const fileId = req.params.id
   const filepath = `./bucket/${fileId}.mp3`
+  console.log(`The filepath to download is ${filepath}`)
   if (existsSync(filepath)) {
     res.download(`./bucket/${fileId}.mp3`)
   } else {
