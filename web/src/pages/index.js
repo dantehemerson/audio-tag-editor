@@ -7,9 +7,11 @@ class IndexPage extends React.Component {
   state = {
     uploaded: false,
   }
+
   handleUploaded(uploaded) {
     this.setState({ uploaded })
   }
+
   render() {
     return (
       <Layout>
