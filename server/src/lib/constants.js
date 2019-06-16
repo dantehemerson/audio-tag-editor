@@ -4,15 +4,15 @@ const tagID3Names = {
   TALB: 'album',
   TYER: 'year',
   TCON: 'genre',
-  TRCK: 'trackNumber',
+  TRCK: 'trackNumber'
 }
 
 const corsOptions = {
   origin: '*',
-  optionsSuccessStatus: 200,
+  optionsSuccessStatus: 200
 }
 
 module.exports = {
   tagID3Names,
-  corsOptions,
+  corsOptions
 }
