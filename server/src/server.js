@@ -1,18 +1,14 @@
 const express = require('express')
 const cors = require('cors')
-const { readFileSync, writeFileSync, existsSync } = require('fs')
+const { readFileSync, existsSync } = require('fs')
 const IncomingForm = require('formidable').IncomingForm
 const { getTags, saveFile, updateTags } = require('./lib/audio')
 const { parseDataFromAudio } = require('./lib/parser')
+const { corsOptions } = require('./lib/constants')
 
 const PORT = process.env.PORT || 8080
 
 const server = express()
-
-const corsOptions = {
-  origin: '*',
-  optionsSuccessStatus: 200,
-}
 
 server.use(cors(corsOptions))
 

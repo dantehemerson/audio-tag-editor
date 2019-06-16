@@ -7,6 +7,12 @@ const tagID3Names = {
   TRCK: 'trackNumber',
 }
 
+const corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200,
+}
+
 module.exports = {
   tagID3Names,
+  corsOptions,
 }

@@ -1,5 +1,31 @@
 import React from 'react'
-import './styles.css'
+import styled from 'styled-components'
+
+const Container = styled.div`
+  height: 200px;
+  width: 200px;
+  background-color: #fff;
+  border: 2px dashed rgb(187, 186, 186);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 16px;
+
+  &.highlight {
+    background-color: rgb(188, 185, 236);
+  }
+`
+
+const Icon = styled.img`
+  opacity: 0.3;
+  height: 64px;
+  width: 64px;
+`
+
+const FileInput = styled.input`
+  display: none;
+`
 
 export default class Dropzone extends React.Component {
   constructor(props) {
@@ -59,28 +85,24 @@ export default class Dropzone extends React.Component {
 
   render() {
     return (
-      <div
-        className={`Dropzone ${this.state.hightlight ? 'Highlight' : ''}`}
+      <Container
+        className={`${this.state.hightlight ? 'highlight' : ''}`}
         onDragOver={this.onDragOver}
         onDragLeave={this.onDragLeave}
         onDrop={this.onDrop}
         onClick={this.openFileDialog}
         style={{ cursor: this.props.disabled ? 'default' : 'pointer' }}
       >
-        <input
+        <FileInput
           ref={this.fileInputRef}
           className="FileInput"
           type="file"
           multiple
           onChange={this.onFilesAdded}
         />
-        <img
-          alt="upload"
-          className="Icon"
-          src="baseline-cloud_upload-24px.svg"
-        />
+        <Icon alt="upload" src="baseline-cloud_upload-24px.svg" />
         <span>Upload Files</span>
-      </div>
+      </Container>
     )
   }
 }
