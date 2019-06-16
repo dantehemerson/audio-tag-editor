@@ -32,27 +32,6 @@ function saveFile(buffer) {
   }
 }
 
-// async function main() {
-//   const tags = await getTags(FILENAME_TEST)
-//   console.log(`Old tags: `)
-//   console.log(tags)
-
-//   console.log(`Tags for update`)
-//   const newTags = {
-//     title: `Title ${Math.random() * 10}`,
-//   }
-//   console.log(newTags)
-
-//   const resUpdate = await updateTags(FILENAME_TEST, newTags)
-//   console.log(`The new tags are: `)
-//   console.log(NodeID3.read(resUpdate))
-
-//   console.log(`Guardando archivo.`)
-//   console.log(await saveFile(resUpdate))
-// }
-
-// main()
-
 module.exports = {
   getTags,
   updateTags,
