@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Dropzone from './Dropzone'
-import './upload.css'
-import Progress from './progress'
 import Edit from './Edit'
+import Progress from './progress'
+import './upload.css'
 
 class Upload extends Component {
   constructor(props) {
@@ -14,6 +14,7 @@ class Upload extends Component {
       successfullUploaded: false,
       finishRes: false,
       tags: null,
+      apiUrl: ''
     }
 
     this.onFilesAdded = this.onFilesAdded.bind(this)
@@ -24,7 +25,7 @@ class Upload extends Component {
 
   onFilesAdded(files) {
     this.setState(prevState => ({
-      files: prevState.files.concat(files),
+      files: prevState.files.concat(files)
     }))
   }
 
@@ -53,7 +54,7 @@ class Upload extends Component {
           const copy = { ...this.state.uploadProgress }
           copy[file.name] = {
             state: 'pending',
-            percentage: (event.loaded / event.total) * 100,
+            percentage: (event.loaded / event.total) * 100
           }
           this.setState({ uploadProgress: copy })
         }
@@ -80,7 +81,7 @@ class Upload extends Component {
       const formData = new FormData()
       formData.append('file', file, file.name)
 
-      req.open('POST', 'http://localhost:8080/upload')
+      req.open('POST', `${this.props.apiUrl}/upload`)
       req.send(formData)
     })
   }
@@ -97,7 +98,7 @@ class Upload extends Component {
             src="baseline-check_circle_outline-24px.svg"
             style={{
               opacity:
-                uploadProgress && uploadProgress.state === 'done' ? 0.5 : 0,
+                uploadProgress && uploadProgress.state === 'done' ? 0.5 : 0
             }}
           />
         </div>
@@ -130,31 +131,36 @@ class Upload extends Component {
 
   render() {
     const { finishRes } = this.state
-    console.log(`Los tags son`, this.state.tags)
-    return finishRes ? (
-      <Edit data={this.state.tags} />
-    ) : (
-      <div className="Upload">
-        <span className="Title">Upload Files</span>
-        <div className="Content">
-          <div>
-            <Dropzone
-              onFilesAdded={this.onFilesAdded}
-              disabled={this.state.uploading || this.state.successfullUploaded}
-            />
+    return (
+      <div>
+        {finishRes ? (
+          <Edit data={this.state.tags} />
+        ) : (
+          <div className="Upload">
+            <span className="Title">Upload Files</span>
+            <div className="Content">
+              <div>
+                <Dropzone
+                  onFilesAdded={this.onFilesAdded}
+                  disabled={
+                    this.state.uploading || this.state.successfullUploaded
+                  }
+                />
+              </div>
+              <div className="Files">
+                {this.state.files.map(file => {
+                  return (
+                    <div key={file.name} className="Row">
+                      <span className="Filename">{file.name}</span>
+                      {this.renderProgress(file)}
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+            <div className="Actions">{this.renderActions()}</div>
           </div>
-          <div className="Files">
-            {this.state.files.map(file => {
-              return (
-                <div key={file.name} className="Row">
-                  <span className="Filename">{file.name}</span>
-                  {this.renderProgress(file)}
-                </div>
-              )
-            })}
-          </div>
-        </div>
-        <div className="Actions">{this.renderActions()}</div>
+        )}
       </div>
     )
   }

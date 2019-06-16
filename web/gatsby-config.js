@@ -2,7 +2,10 @@ module.exports = {
   siteMetadata: {
     title: `Audio Tag Editor`,
     description: `A simple tag editor for audio files.`,
-    author: `@dantehemerson`
+    author: `@dantehemerson`,
+    env: {
+      apiUrl: process.env.API_URL || 'http://localhost:8080'
+    }
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

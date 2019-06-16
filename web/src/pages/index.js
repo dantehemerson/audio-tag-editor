@@ -22,7 +22,7 @@ class IndexPage extends React.Component {
       case STEPPER.DOWNLOAD:
         return <div>Downloaddding</div>
       default:
-        return <Upload />
+        return <Upload apiUrl={this.props.data.site.siteMetadata.env.apiUrl} />
     }
   }
 
@@ -35,5 +35,18 @@ class IndexPage extends React.Component {
     )
   }
 }
+
+export const queryIndex = graphql`
+  query QueryIndex {
+    site {
+      siteMetadata {
+        title
+        env {
+          apiUrl
+        }
+      }
+    }
+  }
+`
 
 export default IndexPage
