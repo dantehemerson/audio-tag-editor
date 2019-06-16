@@ -1,4 +1,4 @@
 [build]
-  base    = "site"
+  base    = "web"
   command = "yarn && gatsby build"
   publish = "site/public"
