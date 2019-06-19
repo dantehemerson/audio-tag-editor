@@ -2,6 +2,7 @@ import { graphql, StaticQuery } from 'gatsby'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Header from './header'
+import 'antd/dist/antd.css'
 
 const Layout = ({ children }) => (
   <StaticQuery
@@ -21,7 +22,7 @@ const Layout = ({ children }) => (
           style={{
             margin: `0`,
             maxWidth: 960,
-            padding: `0px`,
+            padding: `0px`
           }}
         >
           <main>{children}</main>
@@ -38,7 +39,7 @@ const Layout = ({ children }) => (
 )
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 }
 
 export default Layout
