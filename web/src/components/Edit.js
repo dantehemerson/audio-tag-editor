@@ -27,7 +27,7 @@ export default class Edit extends React.Component {
   constructor(...props) {
     super(...props)
     this.state = {
-      ...this.props.data
+      tile: ''
     }
   }
 
@@ -43,6 +43,45 @@ export default class Edit extends React.Component {
             value={this.state.title}
             onChange={this.handleChange}
             placeholder="Song title"
+            id="error"
+          />
+        </Form.Item>
+
+        <Form.Item label="Artist">
+          <Input
+            value={this.state.title}
+            onChange={this.handleChange}
+            placeholder="Song artist"
+            id="error"
+          />
+        </Form.Item>
+
+        <Form.Item label="Album">
+          <Input
+            value={this.state.title}
+            onChange={this.handleChange}
+            placeholder="Song album"
+            id="error"
+          />
+        </Form.Item>
+
+        <Form.Item label="Year">
+          <InputNumber min={300} max={2019} defaultValue={2019} id="error" />
+        </Form.Item>
+
+        <Form.Item label="Genre">
+          <Input
+            value={this.state.title}
+            onChange={this.handleChange}
+            placeholder="Song genre"
+            id="error"
+          />
+        </Form.Item>
+
+        <Form.Item label="Track Number">
+          <InputNumber
+            value={this.state.title}
+            onChange={this.handleChange}
             id="error"
           />
         </Form.Item>
