@@ -7,7 +7,7 @@ import { STEPPER } from '../constants'
 
 class IndexPage extends React.Component {
   state = {
-    stepper: STEPPER.UPLOAD,
+    stepper: STEPPER.EDIT,
     tags: {}
   }
 
