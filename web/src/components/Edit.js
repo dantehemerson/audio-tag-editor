@@ -24,15 +24,37 @@ const formItemLayout = {
 const buttonItemLayout = { wrapperCol: { span: 14, offset: 9 } }
 
 export default class Edit extends React.Component {
-  constructor(...props) {
-    super(...props)
-    this.state = {
-      tile: ''
-    }
+  state = {
+    tile: '',
+    artist: '',
+    album: '',
+    year: 2019,
+    genre: '',
+    trackNumber: 1
   }
 
-  handleChange = event => {
+  handleChangeTitle = event => {
     this.setState({ title: event.target.value })
+  }
+
+  handleChangeArtist = event => {
+    this.setState({ artist: event.target.value })
+  }
+
+  handleChangeAlbum = event => {
+    this.setState({ album: event.target.value })
+  }
+
+  handleChangeYear = year => {
+    this.setState({ year })
+  }
+
+  handleChangeGenre = event => {
+    this.setState({ genre: event.target.value })
+  }
+
+  handleChangeTrackNumber = trackNumber => {
+    this.setState({ trackNumber })
   }
 
   render() {
@@ -41,7 +63,7 @@ export default class Edit extends React.Component {
         <Form.Item label="Title">
           <Input
             value={this.state.title}
-            onChange={this.handleChange}
+            onChange={this.handleChangeTitle}
             placeholder="Song title"
             id="error"
           />
@@ -49,8 +71,8 @@ export default class Edit extends React.Component {
 
         <Form.Item label="Artist">
           <Input
-            value={this.state.title}
-            onChange={this.handleChange}
+            value={this.state.artist}
+            onChange={this.handleChangeArtist}
             placeholder="Song artist"
             id="error"
           />
@@ -58,21 +80,27 @@ export default class Edit extends React.Component {
 
         <Form.Item label="Album">
           <Input
-            value={this.state.title}
-            onChange={this.handleChange}
+            value={this.state.album}
+            onChange={this.handleChangeAlbum}
             placeholder="Song album"
             id="error"
           />
         </Form.Item>
 
         <Form.Item label="Year">
-          <InputNumber min={300} max={2019} defaultValue={2019} id="error" />
+          <InputNumber
+            min={300}
+            max={2019}
+            value={this.state.year}
+            id="error"
+            onChange={this.handleChangeYear}
+          />
         </Form.Item>
 
         <Form.Item label="Genre">
           <Input
-            value={this.state.title}
-            onChange={this.handleChange}
+            value={this.state.genre}
+            onChange={this.handleChangeGenre}
             placeholder="Song genre"
             id="error"
           />
@@ -80,8 +108,10 @@ export default class Edit extends React.Component {
 
         <Form.Item label="Track Number">
           <InputNumber
-            value={this.state.title}
-            onChange={this.handleChange}
+            min={1}
+            max={298} // I think that is the maximum that can exist
+            value={this.state.trackNumber}
+            onChange={this.handleChangeTrackNumber}
             id="error"
           />
         </Form.Item>
