@@ -4,31 +4,23 @@ import Progress from './progress'
 import './upload.css'
 
 class Upload extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      files: [],
-      uploading: false,
-      uploadProgress: {},
-      successfullUploaded: false,
-      finishRes: false,
-      tags: null,
-      apiUrl: ''
-    }
-
-    this.onFilesAdded = this.onFilesAdded.bind(this)
-    this.uploadFiles = this.uploadFiles.bind(this)
-    this.sendRequest = this.sendRequest.bind(this)
-    this.renderActions = this.renderActions.bind(this)
+  state = {
+    files: [],
+    uploading: false,
+    uploadProgress: {},
+    successfullUploaded: false,
+    finishRes: false,
+    tags: null,
+    apiUrl: ''
   }
 
-  onFilesAdded(files) {
+  onFilesAdded = files => {
     this.setState(prevState => ({
       files: prevState.files.concat(files)
     }))
   }
 
-  async uploadFiles() {
+  uploadFiles = async () => {
     this.setState({ uploadProgress: {}, uploading: true })
     const promises = []
     this.state.files.forEach(file => {
@@ -44,7 +36,7 @@ class Upload extends Component {
     }
   }
 
-  sendRequest(file) {
+  sendRequest = file => {
     return new Promise((resolve, reject) => {
       const req = new XMLHttpRequest()
 
@@ -85,7 +77,7 @@ class Upload extends Component {
     })
   }
 
-  renderProgress(file) {
+  renderProgress = file => {
     const uploadProgress = this.state.uploadProgress[file.name]
     if (this.state.uploading || this.state.successfullUploaded) {
       return (
@@ -105,7 +97,7 @@ class Upload extends Component {
     }
   }
 
-  renderActions() {
+  renderActions = () => {
     if (this.state.successfullUploaded) {
       return (
         <button
@@ -129,7 +121,6 @@ class Upload extends Component {
   }
 
   render() {
-    const { finishRes } = this.state
     return (
       <div>
         <div className="Upload">
