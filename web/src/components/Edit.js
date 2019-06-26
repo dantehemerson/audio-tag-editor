@@ -1,15 +1,6 @@
-import React from 'react'
-import {
-  Form,
-  Input,
-  Button,
-  DatePicker,
-  TimePicker,
-  Select,
-  Cascader,
-  InputNumber
-} from 'antd'
+import { Button, Form, Input, InputNumber } from 'antd'
 import get from 'lodash.get'
+import React from 'react'
 
 const formItemLayout = {
   labelCol: {
@@ -128,10 +119,6 @@ export default class Edit extends React.Component {
             onChange={this.handleChangeTrackNumber}
             id="error"
           />
-        </Form.Item>
-
-        <Form.Item label="Date" hasFeedback>
-          <DatePicker style={{ width: '100%' }} />
         </Form.Item>
 
         <Form.Item {...buttonItemLayout}>
