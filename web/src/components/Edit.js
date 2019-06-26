@@ -17,6 +17,8 @@ const buttonItemLayout = { wrapperCol: { span: 14, offset: 9 } }
 
 export default class Edit extends React.Component {
   state = {
+    _recovery: {}, // Object with the initial metadata
+    cover: undefined, // base64 image
     title: '',
     artist: '',
     album: '',
@@ -28,13 +30,19 @@ export default class Edit extends React.Component {
   componentDidMount() {
     const tags = get(this.props, 'tags')
 
-    this.setState({
+    const data = {
       title: get(tags, 'title', ''),
+      cover: get(tags, 'image', undefined),
       artist: get(tags, 'artist', ''),
       album: get(tags, 'album', ''),
       year: get(tags, 'year', 2019),
       genre: get(tags, 'genre', ''),
       trackNumber: get(tags, 'trackNumber', 1)
+    }
+
+    this.setState({
+      ...data,
+      _recovery: data
     })
   }
 
@@ -65,6 +73,7 @@ export default class Edit extends React.Component {
   render() {
     return (
       <Form {...formItemLayout}>
+        <img src={`data:image/jpeg;base64,${this.state.cover}`} />
         <Form.Item label="Title">
           <Input
             value={this.state.title}
