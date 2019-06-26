@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Dropzone from './Dropzone'
-import Edit from './Edit'
 import Progress from './progress'
 import './upload.css'
 
@@ -68,7 +67,7 @@ class Upload extends Component {
       })
 
       req.onload = function onload() {
-        this.setState({ finishRes: true, tags: JSON.parse(req.response) })
+        this.props.handleUploaded(JSON.parse(req.response))
       }.bind(this)
 
       req.upload.addEventListener('error', event => {
@@ -133,34 +132,30 @@ class Upload extends Component {
     const { finishRes } = this.state
     return (
       <div>
-        {finishRes ? (
-          <Edit data={this.state.tags} />
-        ) : (
-          <div className="Upload">
-            <span className="Title">Upload Files</span>
-            <div className="Content">
-              <div>
-                <Dropzone
-                  onFilesAdded={this.onFilesAdded}
-                  disabled={
-                    this.state.uploading || this.state.successfullUploaded
-                  }
-                />
-              </div>
-              <div className="Files">
-                {this.state.files.map(file => {
-                  return (
-                    <div key={file.name} className="Row">
-                      <span className="Filename">{file.name}</span>
-                      {this.renderProgress(file)}
-                    </div>
-                  )
-                })}
-              </div>
+        <div className="Upload">
+          <span className="Title">Upload Files</span>
+          <div className="Content">
+            <div>
+              <Dropzone
+                onFilesAdded={this.onFilesAdded}
+                disabled={
+                  this.state.uploading || this.state.successfullUploaded
+                }
+              />
             </div>
-            <div className="Actions">{this.renderActions()}</div>
+            <div className="Files">
+              {this.state.files.map(file => {
+                return (
+                  <div key={file.name} className="Row">
+                    <span className="Filename">{file.name}</span>
+                    {this.renderProgress(file)}
+                  </div>
+                )
+              })}
+            </div>
           </div>
-        )}
+          <div className="Actions">{this.renderActions()}</div>
+        </div>
       </div>
     )
   }
