@@ -9,6 +9,7 @@ import {
   Cascader,
   InputNumber
 } from 'antd'
+import get from 'lodash.get'
 
 const formItemLayout = {
   labelCol: {
@@ -25,12 +26,25 @@ const buttonItemLayout = { wrapperCol: { span: 14, offset: 9 } }
 
 export default class Edit extends React.Component {
   state = {
-    tile: '',
+    title: '',
     artist: '',
     album: '',
     year: 2019,
     genre: '',
     trackNumber: 1
+  }
+
+  componentDidMount() {
+    const tags = get(this.props, 'tags')
+
+    this.setState({
+      title: get(tags, 'title', ''),
+      artist: get(tags, 'artist', ''),
+      album: get(tags, 'album', ''),
+      year: get(tags, 'year', 2019),
+      genre: get(tags, 'genre', ''),
+      trackNumber: get(tags, 'trackNumber', 1)
+    })
   }
 
   handleChangeTitle = event => {
