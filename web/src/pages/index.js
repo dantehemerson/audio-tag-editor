@@ -7,8 +7,13 @@ import { STEPPER } from '../constants'
 
 class IndexPage extends React.Component {
   state = {
-    stepper: STEPPER.EDIT,
-    tags: {}
+    stepper: STEPPER.UPLOAD,
+    tags: {},
+    apiUrl: undefined
+  }
+
+  componentDidMount() {
+    this.setState({ apiUrl: this.props.data.site.siteMetadata.env.apiUrl })
   }
 
   handleUploaded(stepper, tags) {
@@ -18,11 +23,11 @@ class IndexPage extends React.Component {
   renderStep() {
     switch (this.state.stepper) {
       case STEPPER.EDIT:
-        return <Edit tags={this.state.tags} />
+        return <Edit apiUrl={this.state.apiUrl} tags={this.state.tags} />
       case STEPPER.DOWNLOAD:
         return <div>Downloaddding</div>
       default:
-        return <Upload apiUrl={this.props.data.site.siteMetadata.env.apiUrl} />
+        return <Upload apiUrl={this.state.apiUrl} />
     }
   }
 
