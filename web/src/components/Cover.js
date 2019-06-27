@@ -17,6 +17,12 @@ const Wrapper = styled.div`
 
 export const Cover = ({ imageData, handleChange }) => (
   <Wrapper>
-    <Img src={`data:image/jpeg;base64,${imageData}`} />
+    <Img
+      src={
+        imageData
+          ? `data:image/jpeg;base64,${imageData}`
+          : `https://c-lj.gnst.jp/public/img/common/noimage.jpg?20190126050058`
+      }
+    />
   </Wrapper>
 )
