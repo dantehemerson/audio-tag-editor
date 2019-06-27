@@ -29,7 +29,7 @@ export const Cover = ({ imageData, handleChange }) => {
     <Wrapper>
       <M>
         <Img src={src} />
-        <DownloadButton imageLink={src} />
+        {imageData && <DownloadButton imageLink={src} />}
       </M>
     </Wrapper>
   )

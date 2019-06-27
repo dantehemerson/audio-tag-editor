@@ -7,10 +7,10 @@ const Link = styled.a`
   right: 10px;
   bottom: 10px;
   padding: 12px;
-  box-shadow: 0 0 1px 0px black;
+  box-shadow: 0 0 1px 0px gray;
   border-radius: 50%;
-  color: #e2e2e2;
-  background: #40404070;
+  color: white;
+  background: #40404060;
   text-shadow: 0 0 1px 0px black;
   font-size: 28px;
   display: flex;
