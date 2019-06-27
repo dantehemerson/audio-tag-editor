@@ -1,6 +1,7 @@
 import { Button, Form, Input, InputNumber } from 'antd'
 import get from 'lodash.get'
 import React from 'react'
+import { Cover } from './Cover'
 
 const formItemLayout = {
   labelCol: {
@@ -73,7 +74,7 @@ export default class Edit extends React.Component {
   render() {
     return (
       <Form {...formItemLayout}>
-        <img src={`data:image/jpeg;base64,${this.state.cover}`} />
+        <Cover imageData={this.state.cover} />
         <Form.Item label="Title">
           <Input
             value={this.state.title}
