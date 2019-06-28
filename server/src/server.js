@@ -11,6 +11,7 @@ const PORT = process.env.PORT || 8080
 const server = express()
 
 server.use(cors(corsOptions))
+server.use(express.json())
 
 server.post('/upload', function uploadAndGetTags(req, res) {
   const form = new IncomingForm()
@@ -44,9 +45,10 @@ server.post('/update/:id', function updateFileTags(req, res) {
   const body = req.body
   const params = req.params
   console.log(`LOs datos son `, body, params)
-  return res.json({
+  res.json({
     id: 'Id para descargar'
   })
+  return
   if (req.params.id) {
     res.json({
       error: `Id not found`

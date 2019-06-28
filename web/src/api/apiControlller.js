@@ -3,28 +3,27 @@ export class ApiController {
     this.apiBaseUrl = apiBaseUrl
   }
 
-  sendToEdit(tags) {
+  sendToEdit(id, tags) {
+    console.log(`Editando `, id, ` con `, tags)
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest()
 
-      xhr.open('POST', this._parseUrl('update'))
+      xhr.open('POST', this._parseUrl(`update/${id}`))
 
       xhr.onload = () => {
-        if (this.status === 200) {
-          resolve(xhr.response)
-        }
+        console.log('loaded', xhr.response)
+        resolve(xhr.response)
       }
 
       xhr.onerror = () => {
+        console.log('error')
         reject({
           status: this.status,
           message: xhr.statusText
         })
       }
-
-      xhr.send({
-        tags
-      })
+      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+      xhr.send(JSON.stringify({ tags }))
     })
   }
 
