@@ -2,6 +2,8 @@ import { Button, Form, Input, InputNumber } from 'antd'
 import get from 'lodash.get'
 import React from 'react'
 import { Cover } from './Cover'
+import { ApiController } from '../api/apiControlller'
+import { REQUEST_STATUS } from '../constants'
 
 const formItemLayout = {
   labelCol: {
@@ -17,28 +19,44 @@ const formItemLayout = {
 const buttonItemLayout = { wrapperCol: { span: 14, offset: 9 } }
 
 export default class Edit extends React.Component {
+  constructor(...props) {
+    super(...props)
+    this.apiController = new ApiController(this.props.apiUrl)
+  }
+
   state = {
     _recovery: {}, // Object with the initial metadata
-    cover: undefined, // base64 image
-    title: '',
-    artist: '',
-    album: '',
-    year: 2019,
-    genre: '',
-    trackNumber: 1
+
+    // Song id to sent to edit.
+    id: undefined,
+
+    tags: {
+      cover: undefined, // base64 image
+      title: '',
+      artist: '',
+      album: '',
+      year: 2019,
+      genre: '',
+      trackNumber: 1
+    },
+
+    requestStatus: REQUEST_STATUS.NOT_SEND
   }
 
   componentDidMount() {
     const tags = get(this.props, 'tags')
 
     const data = {
-      title: get(tags, 'title', ''),
-      cover: get(tags, 'image', undefined),
-      artist: get(tags, 'artist', ''),
-      album: get(tags, 'album', ''),
-      year: get(tags, 'year', 2019),
-      genre: get(tags, 'genre', ''),
-      trackNumber: get(tags, 'trackNumber', 1)
+      id: get(tags, 'id', undefined),
+      tags: {
+        title: get(tags, 'title', ''),
+        cover: get(tags, 'image', undefined),
+        artist: get(tags, 'artist', ''),
+        album: get(tags, 'album', ''),
+        year: get(tags, 'year', 2019),
+        genre: get(tags, 'genre', ''),
+        trackNumber: get(tags, 'trackNumber', 1)
+      }
     }
 
     this.setState({
@@ -48,36 +66,77 @@ export default class Edit extends React.Component {
   }
 
   handleChangeTitle = event => {
-    this.setState({ title: event.target.value })
+    this.setState({
+      tags: {
+        ...Object.assign({}, this.state.tags),
+        title: event.target.value
+      }
+    })
   }
 
   handleChangeArtist = event => {
-    this.setState({ artist: event.target.value })
+    this.setState({
+      tags: {
+        ...Object.assign({}, this.state.tags),
+        artist: event.target.value
+      }
+    })
   }
 
   handleChangeAlbum = event => {
-    this.setState({ album: event.target.value })
+    this.setState({
+      tags: {
+        ...Object.assign({}, this.state.tags),
+        album: event.target.value
+      }
+    })
   }
 
   handleChangeYear = year => {
-    this.setState({ year })
+    this.setState({
+      tags: {
+        ...Object.assign({}, this.state.tags),
+        year
+      }
+    })
   }
 
   handleChangeGenre = event => {
-    this.setState({ genre: event.target.value })
+    this.setState({
+      tags: {
+        ...Object.assign({}, this.state.tags),
+        genre: event.target.value
+      }
+    })
   }
 
   handleChangeTrackNumber = trackNumber => {
-    this.setState({ trackNumber })
+    this.setState({
+      tags: {
+        ...Object.assign({}, this.state.tags),
+        trackNumber
+      }
+    })
+  }
+
+  handleUpdateTags = async e => {
+    this.setState({ requestStatus: REQUEST_STATUS.PROGRESS })
+    console.log(`Updatestst`)
+    try {
+      const res = await this.apiController.sendToEdit(this.state.tags)
+      console.log(`res is`, res)
+    } catch (e) {
+      this.setState({ requestStatus: REQUEST_STATUS.ERROR })
+    }
   }
 
   render() {
     return (
       <Form {...formItemLayout}>
-        <Cover imageData={this.state.cover} />
+        <Cover imageData={this.state.tags.cover} />
         <Form.Item label="Title">
           <Input
-            value={this.state.title}
+            value={this.state.tags.title}
             onChange={this.handleChangeTitle}
             placeholder="Song title"
             id="error"
@@ -86,7 +145,7 @@ export default class Edit extends React.Component {
 
         <Form.Item label="Artist">
           <Input
-            value={this.state.artist}
+            value={this.state.tags.artist}
             onChange={this.handleChangeArtist}
             placeholder="Song artist"
             id="error"
@@ -95,7 +154,7 @@ export default class Edit extends React.Component {
 
         <Form.Item label="Album">
           <Input
-            value={this.state.album}
+            value={this.state.tags.album}
             onChange={this.handleChangeAlbum}
             placeholder="Song album"
             id="error"
@@ -106,7 +165,7 @@ export default class Edit extends React.Component {
           <InputNumber
             min={300}
             max={2019}
-            value={this.state.year}
+            value={this.state.tags.year}
             id="error"
             onChange={this.handleChangeYear}
           />
@@ -114,7 +173,7 @@ export default class Edit extends React.Component {
 
         <Form.Item label="Genre">
           <Input
-            value={this.state.genre}
+            value={this.state.tags.genre}
             onChange={this.handleChangeGenre}
             placeholder="Song genre"
             id="error"
@@ -125,14 +184,20 @@ export default class Edit extends React.Component {
           <InputNumber
             min={1}
             max={298} // I think that is the maximum that can exist
-            value={this.state.trackNumber}
+            value={this.state.tags.trackNumber}
             onChange={this.handleChangeTrackNumber}
             id="error"
           />
         </Form.Item>
 
         <Form.Item {...buttonItemLayout}>
-          <Button type="primary">Submit</Button>
+          <Button
+            onClick={this.handleUpdateTags}
+            htmlType="submit"
+            type="primary"
+          >
+            Update
+          </Button>
         </Form.Item>
       </Form>
     )

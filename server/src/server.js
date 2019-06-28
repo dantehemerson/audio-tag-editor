@@ -40,9 +40,14 @@ server.post('/upload', function uploadAndGetTags(req, res) {
   form.parse(req)
 })
 
-server.post('/update', function updateFileTags(req, res) {
+server.post('/update/:id', function updateFileTags(req, res) {
   const body = req.body
-  if (!body['id']) {
+  const params = req.params
+  console.log(`LOs datos son `, body, params)
+  return res.json({
+    id: 'Id para descargar'
+  })
+  if (req.params.id) {
     res.json({
       error: `Id not found`
     })
