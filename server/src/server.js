@@ -43,24 +43,25 @@ server.post('/upload', function uploadAndGetTags(req, res) {
 
 server.post('/update/:id', function updateFileTags(req, res) {
   const body = req.body
-  const params = req.params
 
-  const fileId = params.id
-
-  if (req.params.id) {
-    res.json({
+  const filename = req.params.id
+  if (!filename) {
+    return res.json({
       error: `Id not found`
     })
   }
+
   const tags = body.tags
   if (!tags) {
-    res.json({
+    console.log(`No hay tags`)
+    return res.json({
       error: `No hay tags para actualizar.`
     })
   }
 
   try {
-    const file = readFileSync(filename)
+    const file = readFileSync(`./bucket/${filename}.mp3`)
+    console.log(file)
     const fileBuffer = updateTags(file, tags)
     const fileId = saveFile(fileBuffer) // el id que se usara para descargar
     res.json({
