@@ -123,10 +123,9 @@ export default class Edit extends React.Component {
     this.setState({ requestStatus: REQUEST_STATUS.PROGRESS })
     console.log(`Updatestst`)
     try {
-      const res = await this.apiController.sendToEdit(
-        this.state.id,
-        this.state.tags
-      )
+      const newTags = Object.assign({}, this.state.tags)
+      delete newTags.cover
+      const res = await this.apiController.sendToEdit(this.state.id, newTags)
       console.log(`res is`, res)
     } catch (e) {
       this.setState({ requestStatus: REQUEST_STATUS.ERROR })
