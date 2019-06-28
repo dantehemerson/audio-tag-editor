@@ -1,9 +1,9 @@
 {
   "name": "audio-tag-editor-website",
   "private": true,
-  "description": "Website",
+  "description": "Audio Tag Editor Website",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Dante Calderon <dantehemerson@gmail.com>",
   "dependencies": {
     "antd": "^3.19.5",
     "babel-plugin-styled-components": "^1.10.0",
