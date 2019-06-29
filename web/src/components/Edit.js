@@ -126,6 +126,7 @@ export default class Edit extends React.Component {
       const newTags = Object.assign({}, this.state.tags)
       delete newTags.cover
       const res = await this.apiController.sendToEdit(this.state.id, newTags)
+      this.props.handleEdited(JSON.parse(res).id)
       console.log(`res is`, res)
     } catch (e) {
       this.setState({ requestStatus: REQUEST_STATUS.ERROR })

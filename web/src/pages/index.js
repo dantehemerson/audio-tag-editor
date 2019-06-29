@@ -4,11 +4,13 @@ import Layout from '../components/layout'
 import SEO from '../components/seo'
 import Upload from '../components/upload'
 import { STEPPER } from '../constants'
+import { Download } from '../components/Download'
 
 class IndexPage extends React.Component {
   state = {
     stepper: STEPPER.UPLOAD,
     tags: {},
+    downloadUrl: undefined,
     apiUrl: undefined
   }
 
@@ -22,12 +24,25 @@ class IndexPage extends React.Component {
     this.setState({ stepper: STEPPER.EDIT, tags })
   }
 
+  handleEdited = downloadId => {
+    this.setState({
+      stepper: STEPPER.DOWNLOAD,
+      downloadUrl: `${this.state.apiUrl}/download/${downloadId}`
+    })
+  }
+
   renderStep() {
     switch (this.state.stepper) {
       case STEPPER.EDIT:
-        return <Edit apiUrl={this.state.apiUrl} tags={this.state.tags} />
+        return (
+          <Edit
+            apiUrl={this.state.apiUrl}
+            tags={this.state.tags}
+            handleEdited={this.handleEdited}
+          />
+        )
       case STEPPER.DOWNLOAD:
-        return <div>Downloaddding</div>
+        return <Download downloadUrl={this.state.downloadUrl} />
       default:
         return (
           <Upload
