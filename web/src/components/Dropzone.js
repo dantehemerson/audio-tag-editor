@@ -90,6 +90,7 @@ export default class Dropzone extends React.Component {
         <FileInput
           ref={this.fileInputRef}
           type="file"
+          accept=".mp3"
           multiple
           onChange={this.onFilesAdded}
         />
