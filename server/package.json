@@ -15,7 +15,8 @@
     "express": "^4.17.1",
     "formidable": "^1.2.1",
     "lodash": "^4.17.11",
-    "node-id3": "^0.1.7"
+    "node-id3": "^0.1.7",
+    "slug": "^1.1.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
