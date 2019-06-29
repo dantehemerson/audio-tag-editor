@@ -91,7 +91,6 @@ export default class Dropzone extends React.Component {
           ref={this.fileInputRef}
           type="file"
           accept=".mp3"
-          multiple
           onChange={this.onFilesAdded}
         />
         <Icon alt="upload" src="baseline-cloud_upload-24px.svg" />
