@@ -32,20 +32,14 @@ export default class Dropzone extends React.Component {
     super(props)
     this.state = { hightlight: false }
     this.fileInputRef = React.createRef()
-
-    this.openFileDialog = this.openFileDialog.bind(this)
-    this.onFilesAdded = this.onFilesAdded.bind(this)
-    this.onDragOver = this.onDragOver.bind(this)
-    this.onDragLeave = this.onDragLeave.bind(this)
-    this.onDrop = this.onDrop.bind(this)
   }
 
-  openFileDialog() {
+  openFileDialog = () => {
     if (this.props.disabled) return
     this.fileInputRef.current.click()
   }
 
-  onFilesAdded(evt) {
+  onFilesAdded = evt => {
     if (this.props.disabled) return
     const files = evt.target.files
     if (this.props.onFilesAdded) {
@@ -54,17 +48,17 @@ export default class Dropzone extends React.Component {
     }
   }
 
-  onDragOver(event) {
+  onDragOver = event => {
     event.preventDefault()
     if (this.props.disabed) return
     this.setState({ hightlight: true })
   }
 
-  onDragLeave(event) {
+  onDragLeave = event => {
     this.setState({ hightlight: false })
   }
 
-  onDrop(event) {
+  onDrop = event => {
     event.preventDefault()
     if (this.props.disabed) return
     const files = event.dataTransfer.files
@@ -75,7 +69,7 @@ export default class Dropzone extends React.Component {
     this.setState({ hightlight: false })
   }
 
-  fileListToArray(list) {
+  fileListToArray = list => {
     const array = []
     for (var i = 0; i < list.length; i++) {
       array.push(list.item(i))
