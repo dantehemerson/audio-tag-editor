@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "author": "Dante Calderon <dantehemerson@gmail.com>",
   "dependencies": {
-    "antd": "3.19.5",
+    "antd": "3.20.5",
     "babel-plugin-styled-components": "1.10.0",
     "gatsby": "2.9.4",
     "gatsby-image": "2.1.4",
