@@ -1,7 +1,99 @@
 import React, { Component } from 'react'
 import Dropzone from './Dropzone'
 import Progress from './progress'
-import './upload.css'
+import styled from 'styled-components'
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: flex-start;
+  text-align: left;
+  overflow: hidden;
+  box-shadow: 0px 0px 18px gray;
+`
+
+const Content = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding-top: 16px;
+  box-sizing: border-box;
+  width: 100%;
+`
+
+const Files = styled.div`
+  margin-left: 32px;
+  align-items: flex-start;
+  justify-items: flex-start;
+  flex: 1;
+  overflow-y: auto;
+`
+
+const Row = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 50px;
+  padding: 8px;
+  overflow: hidden;
+  box-sizing: border-box;
+`
+const Filename = styled.span`
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #555;
+`
+
+const Actions = styled.div`
+  display: flex;
+  flex: 1;
+  width: 100%;
+  align-items: flex-end;
+  flex-direction: column;
+  margin-top: 32px;
+`
+
+const ProgressWrapper = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+`
+
+const CheckIcon = styled.img`
+  opacity: 0.5;
+  margin-left: 32px;
+`
+
+const Button = styled.button`
+  font-family: 'Roboto medium', sans-serif;
+  font-size: 14px;
+  display: inline-block;
+  height: 36px;
+  min-width: 88px;
+  padding: 6px 16px;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 0;
+  border-radius: 2px;
+  background: rgba(103, 58, 183, 1);
+  color: #fff;
+  outline: 0;
+  &:disabled {
+    background: rgb(189, 189, 189);
+    cursor: default;
+  }
+`
 
 class Upload extends Component {
   state = {
@@ -81,10 +173,9 @@ class Upload extends Component {
     const uploadProgress = this.state.uploadProgress[file.name]
     if (this.state.uploading || this.state.successfullUploaded) {
       return (
-        <div className="ProgressWrapper">
+        <ProgressWrapper>
           <Progress progress={uploadProgress ? uploadProgress.percentage : 0} />
-          <img
-            className="CheckIcon"
+          <CheckIcon
             alt="done"
             src="baseline-check_circle_outline-24px.svg"
             style={{
@@ -92,7 +183,7 @@ class Upload extends Component {
                 uploadProgress && uploadProgress.state === 'done' ? 0.5 : 0
             }}
           />
-        </div>
+        </ProgressWrapper>
       )
     }
   }
@@ -100,54 +191,49 @@ class Upload extends Component {
   renderActions = () => {
     if (this.state.successfullUploaded) {
       return (
-        <button
+        <Button
           onClick={() =>
             this.setState({ files: [], successfullUploaded: false })
           }
         >
           Clear
-        </button>
+        </Button>
       )
     } else {
       return (
-        <button
+        <Button
           disabled={this.state.files.length < 0 || this.state.uploading}
           onClick={this.uploadFiles}
         >
           Upload
-        </button>
+        </Button>
       )
     }
   }
 
   render() {
     return (
-      <div>
-        <div className="Upload">
-          <span className="Title">Upload Files</span>
-          <div className="Content">
-            <div>
-              <Dropzone
-                onFilesAdded={this.onFilesAdded}
-                disabled={
-                  this.state.uploading || this.state.successfullUploaded
-                }
-              />
-            </div>
-            <div className="Files">
-              {this.state.files.map(file => {
-                return (
-                  <div key={file.name} className="Row">
-                    <span className="Filename">{file.name}</span>
-                    {this.renderProgress(file)}
-                  </div>
-                )
-              })}
-            </div>
+      <Container>
+        <Content>
+          <div>
+            <Dropzone
+              onFilesAdded={this.onFilesAdded}
+              disabled={this.state.uploading || this.state.successfullUploaded}
+            />
           </div>
-          <div className="Actions">{this.renderActions()}</div>
-        </div>
-      </div>
+          <Files>
+            {this.state.files.map(file => {
+              return (
+                <Row key={file.name}>
+                  <Filename>{file.name}</Filename>
+                  {this.renderProgress(file)}
+                </Row>
+              )
+            })}
+          </Files>
+        </Content>
+        <Actions>{this.renderActions()}</Actions>
+      </Container>
     )
   }
 }
