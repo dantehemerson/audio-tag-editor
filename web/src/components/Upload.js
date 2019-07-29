@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   display: flex;
+  padding: 30px 0;
   flex-direction: column;
   flex: 1;
   align-items: center;
@@ -17,6 +18,7 @@ const Files = styled.div`
   align-items: flex-start;
   justify-items: flex-start;
   flex: 1;
+  min-height: 66px;
   overflow-y: auto;
 `
 
@@ -31,7 +33,7 @@ const Row = styled.div`
   box-sizing: border-box;
 `
 const Filename = styled.span`
-  margin-bottom: 8px;
+  margin-top: 8px;
   font-size: 16px;
   color: #555;
 `
@@ -90,7 +92,7 @@ class Upload extends Component {
 
   onFilesAdded = files => {
     this.setState({
-      files
+      files: files.length ? files.slice(0, 1) : []
     })
   }
 
@@ -191,7 +193,7 @@ class Upload extends Component {
           disabled={this.state.files.length < 0 || this.state.uploading}
           onClick={this.uploadFiles}
         >
-          Upload
+          Edit ->
         </Button>
       </Container>
     )

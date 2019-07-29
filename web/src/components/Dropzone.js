@@ -5,9 +5,10 @@ import { Icon } from 'antd'
 const Container = styled.div`
   height: 200px;
   width: 200px;
-  background-color: #fff;
+  background-color: #a4bae317;
   border: 2px dashed rgb(187, 186, 186);
   display: flex;
+  border-radius: 3px;
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -89,7 +90,7 @@ export default class Dropzone extends React.Component {
           onChange={this.onFilesAdded}
         />
         <Icon type="cloud-upload" width="25px" height="25px" />
-        <span>Upload Files</span>
+        <span>Upload File</span>
       </Container>
     )
   }
