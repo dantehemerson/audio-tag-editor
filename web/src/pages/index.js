@@ -53,9 +53,21 @@ class IndexPage extends React.Component {
     }
   }
 
+  getTitle = () => {
+    switch (this.state.stepper) {
+      case STEPPER.EDIT:
+        return 'Edit Tags'
+
+      case STEPPER.DOWNLOAD:
+        return 'Download Song'
+      default:
+        return 'Upload File'
+    }
+  }
+
   render() {
     return (
-      <Layout>
+      <Layout title={this.getTitle()}>
         <SEO title="Home" />
         {this.renderStep()}
       </Layout>

@@ -6,15 +6,17 @@ import React from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { GlobalStyles, lightTheme } from '../globalStyles'
 import Header from './header'
+import { StepperTitle } from './StepperTitle'
 
 const Container = styled(Col)`
   box-shadow: 0px 0px 3px #8080807d;
   border-radius: 2px;
   margin-top: 30px;
+  overflow: hidden;
   background: white;
 `
 
-const Layout = ({ children }) => (
+const Layout = ({ children, title }) => (
   <StaticQuery
     query={graphql`
       query SiteTitleQuery {
@@ -40,6 +42,7 @@ const Layout = ({ children }) => (
                 xxl={{ span: 14, offset: 5 }}
               >
                 <Header siteTitle={data.site.siteMetadata.title} />
+                <StepperTitle title={title}></StepperTitle>
                 {children}
                 <footer>
                   © {new Date().getFullYear()}, Built with

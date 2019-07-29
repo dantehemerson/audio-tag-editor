@@ -5,6 +5,8 @@ import styled from 'styled-components'
 
 const Wrapper = styled.header`
   display: flex;
+  background: #2a62c6;
+  padding: 24px 0;
   align-items: center;
   justify-content: center;
 `
@@ -20,7 +22,7 @@ const Header = ({ siteTitle }) => (
         to="/"
         style={{
           textDecoration: `none`,
-          color: '#1571e7'
+          color: 'white'
         }}
       >
         {siteTitle}
