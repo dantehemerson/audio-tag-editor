@@ -7,18 +7,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  align-items: flex-start;
+  align-items: center;
   text-align: left;
   overflow: hidden;
   box-shadow: 0px 0px 18px gray;
-`
-
-const Content = styled.div`
-  display: flex;
-  flex-direction: row;
-  padding-top: 16px;
-  box-sizing: border-box;
-  width: 100%;
 `
 
 const Files = styled.div`
@@ -43,15 +35,6 @@ const Filename = styled.span`
   margin-bottom: 8px;
   font-size: 16px;
   color: #555;
-`
-
-const Actions = styled.div`
-  display: flex;
-  flex: 1;
-  width: 100%;
-  align-items: flex-end;
-  flex-direction: column;
-  margin-top: 32px;
 `
 
 const ProgressWrapper = styled.div`
@@ -188,51 +171,29 @@ class Upload extends Component {
     }
   }
 
-  renderActions = () => {
-    if (this.state.successfullUploaded) {
-      return (
-        <Button
-          onClick={() =>
-            this.setState({ files: [], successfullUploaded: false })
-          }
-        >
-          Clear
-        </Button>
-      )
-    } else {
-      return (
+  render() {
+    return (
+      <Container>
+        <Dropzone
+          onFilesAdded={this.onFilesAdded}
+          disabled={this.state.uploading || this.state.successfullUploaded}
+        />
+        <Files>
+          {this.state.files.map(file => {
+            return (
+              <Row key={file.name}>
+                <Filename>{file.name}</Filename>
+                {this.renderProgress(file)}
+              </Row>
+            )
+          })}
+        </Files>
         <Button
           disabled={this.state.files.length < 0 || this.state.uploading}
           onClick={this.uploadFiles}
         >
           Upload
         </Button>
-      )
-    }
-  }
-
-  render() {
-    return (
-      <Container>
-        <Content>
-          <div>
-            <Dropzone
-              onFilesAdded={this.onFilesAdded}
-              disabled={this.state.uploading || this.state.successfullUploaded}
-            />
-          </div>
-          <Files>
-            {this.state.files.map(file => {
-              return (
-                <Row key={file.name}>
-                  <Filename>{file.name}</Filename>
-                  {this.renderProgress(file)}
-                </Row>
-              )
-            })}
-          </Files>
-        </Content>
-        <Actions>{this.renderActions()}</Actions>
       </Container>
     )
   }
