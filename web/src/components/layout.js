@@ -7,17 +7,11 @@ import styled, { ThemeProvider } from 'styled-components'
 import { GlobalStyles, lightTheme } from '../globalStyles'
 import Header from './header'
 
-const Card = styled.div`
-  width: 100%;
+const Container = styled(Col)`
   box-shadow: 0px 0px 3px #8080807d;
   border-radius: 2px;
-  padding: 14px 14px;
+  margin-top: 30px;
   background: white;
-`
-
-const HeaderContainer = styled(Card)`
-  margin-top: 20px;
-  margin-bottom: 10px;
 `
 
 const Layout = ({ children }) => (
@@ -37,7 +31,7 @@ const Layout = ({ children }) => (
           <React.Fragment>
             <GlobalStyles />
             <Row>
-              <Col
+              <Container
                 xs={{ span: 24 }}
                 sm={{ span: 24 }}
                 md={{ span: 22, offset: 1 }}
@@ -45,18 +39,16 @@ const Layout = ({ children }) => (
                 xl={{ span: 18, offset: 3 }}
                 xxl={{ span: 14, offset: 5 }}
               >
-                <HeaderContainer>
-                  <Header siteTitle={data.site.siteMetadata.title} />
-                </HeaderContainer>
-                <Card>{children}</Card>
-              </Col>
+                <Header siteTitle={data.site.siteMetadata.title} />
+                {children}
+                <footer>
+                  © {new Date().getFullYear()}, Built with
+                  {` `}
+                  <a href="https://www.gatsbyjs.org">Gatsby</a> by{' '}
+                  <a href="https://dantecalderon.dev">Dante Calderon</a>
+                </footer>
+              </Container>
             </Row>
-            <footer>
-              © {new Date().getFullYear()}, Built with
-              {` `}
-              <a href="https://www.gatsbyjs.org">Gatsby</a> by{' '}
-              <a href="https://dantecalderon.dev">Dante Calderon</a>
-            </footer>
           </React.Fragment>
         </ThemeProvider>
       </React.Fragment>
