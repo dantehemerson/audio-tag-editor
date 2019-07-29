@@ -33,10 +33,23 @@ export class Download extends React.Component {
           icon="download"
           size="large"
           style={{
+            marginBottom: '40px',
             maxWidth: '200px'
           }}
         >
           Download
+        </Button>
+        <Button
+          href="/"
+          type="s"
+          shape="round"
+          icon="edit"
+          size="large"
+          style={{
+            maxWidth: '230px'
+          }}
+        >
+          Edit another song
         </Button>
       </Wrapper>
     )
