@@ -1,12 +1,44 @@
 import React from 'react'
+import styled from 'styled-components'
+import { Button, Icon } from 'antd'
 
+const Wrapper = styled.div`
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+const Info = styled.h3`
+  margin: 35px 0;
+  color: gray;
+  font-size: 17px;
+`
 export class Download extends React.Component {
   render() {
     return (
-      <div>
-        <h1>Download page</h1>
-        <a href={this.props.downloadUrl}>Download Song</a>
-      </div>
+      <Wrapper>
+        <Icon
+          type="check-circle"
+          theme="filled"
+          style={{
+            fontSize: '104px',
+            color: '#52c41b'
+          }}
+        />
+        <Info>Successfull Edited!!! </Info>
+        <Button
+          href={this.props.downloadUrl}
+          type="primary"
+          shape="round"
+          icon="download"
+          size="large"
+          style={{
+            maxWidth: '200px'
+          }}
+        >
+          Download
+        </Button>
+      </Wrapper>
     )
   }
 }

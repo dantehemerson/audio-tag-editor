@@ -6,7 +6,7 @@ import { Button } from 'antd'
 
 const Container = styled.div`
   display: flex;
-  padding: 30px 0;
+  padding: 30px 14px;
   flex-direction: column;
   flex: 1;
   align-items: center;
