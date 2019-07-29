@@ -135,7 +135,12 @@ export default class Edit extends React.Component {
 
   render() {
     return (
-      <Form {...formItemLayout}>
+      <Form
+        {...formItemLayout}
+        style={{
+          padding: '0 14px'
+        }}
+      >
         <Cover imageData={this.state.tags.cover} />
         <Form.Item label="Title">
           <Input
@@ -198,6 +203,9 @@ export default class Edit extends React.Component {
             onClick={this.handleUpdateTags}
             htmlType="submit"
             type="primary"
+            shape="round"
+            icon="edit"
+            size="large"
           >
             Update
           </Button>
