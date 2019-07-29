@@ -8,7 +8,7 @@ import { Download } from '../components/Download'
 
 class IndexPage extends React.Component {
   state = {
-    stepper: STEPPER.DOWNLOAD,
+    stepper: STEPPER.UPLOAD,
     tags: {},
     downloadUrl: undefined,
     apiUrl: undefined
