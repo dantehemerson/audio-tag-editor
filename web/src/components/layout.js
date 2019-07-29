@@ -13,6 +13,7 @@ const Container = styled(Col)`
   box-shadow: 0px 0px 3px #8080807d;
   border-radius: 2px;
   margin-top: 30px;
+  margin-bottom: 30px;
   overflow: hidden;
   background: white;
 `
