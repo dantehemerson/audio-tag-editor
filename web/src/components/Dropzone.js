@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Icon } from 'antd'
 
 const Container = styled.div`
   height: 200px;
@@ -15,12 +16,6 @@ const Container = styled.div`
   &.highlight {
     background-color: rgb(188, 185, 236);
   }
-`
-
-const Icon = styled.img`
-  opacity: 0.3;
-  height: 64px;
-  width: 64px;
 `
 
 const FileInput = styled.input`
@@ -93,7 +88,7 @@ export default class Dropzone extends React.Component {
           accept=".mp3"
           onChange={this.onFilesAdded}
         />
-        <Icon alt="upload" src="baseline-cloud_upload-24px.svg" />
+        <Icon type="cloud-upload" width="25px" height="25px" />
         <span>Upload Files</span>
       </Container>
     )

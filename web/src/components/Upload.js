@@ -10,7 +10,6 @@ const Container = styled.div`
   align-items: center;
   text-align: left;
   overflow: hidden;
-  box-shadow: 0px 0px 18px gray;
 `
 
 const Files = styled.div`
