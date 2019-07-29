@@ -5,8 +5,9 @@ const Wrapper = styled.div`
   padding: 30px 0;
 `
 const Title = styled.h3`
-  font-size: 22px;
-  color: #3f3d3d;
+  font-size: 25px;
+  color: #3f3d3de3;
+  font-weight: 600;
   text-align: center;
 `
 const Line = styled.p`

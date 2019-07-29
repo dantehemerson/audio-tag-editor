@@ -7,6 +7,7 @@ import styled, { ThemeProvider } from 'styled-components'
 import { GlobalStyles, lightTheme } from '../globalStyles'
 import Header from './header'
 import { StepperTitle } from './StepperTitle'
+import Footer from './Footer'
 
 const Container = styled(Col)`
   box-shadow: 0px 0px 3px #8080807d;
@@ -44,12 +45,7 @@ const Layout = ({ children, title }) => (
                 <Header siteTitle={data.site.siteMetadata.title} />
                 <StepperTitle title={title}></StepperTitle>
                 {children}
-                <footer>
-                  © {new Date().getFullYear()}, Built with
-                  {` `}
-                  <a href="https://www.gatsbyjs.org">Gatsby</a> by{' '}
-                  <a href="https://dantecalderon.dev">Dante Calderon</a>
-                </footer>
+                <Footer />
               </Container>
             </Row>
           </React.Fragment>

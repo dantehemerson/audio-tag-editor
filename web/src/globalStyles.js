@@ -33,7 +33,7 @@ export const GlobalStyles = createGlobalStyle`
     text-rendering: geometricPrecision;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    font-family: 'Play', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     background: rgb(238,174,202);
     background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
   }
