@@ -1,19 +1,25 @@
+import { Col, Row } from 'antd'
+import 'antd/dist/antd.css'
 import { graphql, StaticQuery } from 'gatsby'
 import PropTypes from 'prop-types'
 import React from 'react'
-import Header from './header'
-import 'antd/dist/antd.css'
-import { Row, Col } from 'antd'
 import styled, { ThemeProvider } from 'styled-components'
+import { GlobalStyles, lightTheme } from '../globalStyles'
+import Header from './header'
 
-import { GlobalStyles, darkTheme, lightTheme } from '../globalStyles'
-
-const Content = styled(Col)`
+const Card = styled.div`
+  width: 100%;
   box-shadow: 0px 0px 3px #8080807d;
+  border-radius: 2px;
   padding: 14px 14px;
   background: white;
-  border-radius: 4px;
 `
+
+const HeaderContainer = styled(Card)`
+  margin-top: 20px;
+  margin-bottom: 10px;
+`
+
 const Layout = ({ children }) => (
   <StaticQuery
     query={graphql`
@@ -27,12 +33,11 @@ const Layout = ({ children }) => (
     `}
     render={data => (
       <React.Fragment>
-        <Header siteTitle={data.site.siteMetadata.title} />
         <ThemeProvider theme={lightTheme}>
           <React.Fragment>
             <GlobalStyles />
             <Row>
-              <Content
+              <Col
                 xs={{ span: 24 }}
                 sm={{ span: 24 }}
                 md={{ span: 22, offset: 1 }}
@@ -40,8 +45,11 @@ const Layout = ({ children }) => (
                 xl={{ span: 18, offset: 3 }}
                 xxl={{ span: 14, offset: 5 }}
               >
-                {children}
-              </Content>
+                <HeaderContainer>
+                  <Header siteTitle={data.site.siteMetadata.title} />
+                </HeaderContainer>
+                <Card>{children}</Card>
+              </Col>
             </Row>
             <footer>
               © {new Date().getFullYear()}, Built with
