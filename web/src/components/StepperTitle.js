@@ -16,7 +16,7 @@ const Line = styled.p`
   margin: 0 auto;
   padding: 0;
   border: 0;
-  width: 80%;
+  width: 88%;
 `
 
 export const StepperTitle = ({ title }) => (

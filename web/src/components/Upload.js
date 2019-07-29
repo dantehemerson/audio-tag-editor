@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Dropzone from './Dropzone'
 import Progress from './progress'
 import styled from 'styled-components'
+import { Button } from 'antd'
 
 const Container = styled.div`
   display: flex;
@@ -48,35 +49,6 @@ const ProgressWrapper = styled.div`
 const CheckIcon = styled.img`
   opacity: 0.5;
   margin-left: 32px;
-`
-
-const Button = styled.button`
-  font-family: 'Roboto medium', sans-serif;
-  font-size: 14px;
-  display: inline-block;
-  height: 36px;
-  min-width: 88px;
-  padding: 6px 16px;
-  line-height: 1.42857143;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  -ms-touch-action: manipulation;
-  touch-action: manipulation;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  border: 0;
-  border-radius: 2px;
-  background: rgba(103, 58, 183, 1);
-  color: #fff;
-  outline: 0;
-  &:disabled {
-    background: rgb(189, 189, 189);
-    cursor: default;
-  }
 `
 
 class Upload extends Component {
@@ -190,10 +162,14 @@ class Upload extends Component {
           })}
         </Files>
         <Button
-          disabled={this.state.files.length < 0 || this.state.uploading}
           onClick={this.uploadFiles}
+          disabled={!this.state.files.length || this.state.uploading}
+          type="primary"
+          shape="round"
+          icon="form"
+          size="large"
         >
-          Edit ->
+          Go to edit
         </Button>
       </Container>
     )
