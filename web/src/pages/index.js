@@ -2,7 +2,7 @@ import React from 'react'
 import Edit from '../components/Edit'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
-import Upload from '../components/upload'
+import Upload from '../components/Upload'
 import { STEPPER } from '../constants'
 import { Download } from '../components/Download'
 
