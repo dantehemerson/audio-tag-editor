@@ -89,7 +89,7 @@ export default class Dropzone extends React.Component {
           accept=".mp3"
           onChange={this.onFilesAdded}
         />
-        <Icon type="cloud-upload" width="25px" height="25px" />
+        <Icon type="cloud-upload" style={{ fontSize: '34px' }} />
         <span>Upload File</span>
       </Container>
     )
