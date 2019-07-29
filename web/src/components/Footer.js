@@ -10,8 +10,21 @@ const Footer = () => (
   <FooterWrapper>
     © {new Date().getFullYear()}, Built with
     {` `}
-    <a href="https://www.gatsbyjs.org">Gatsby</a> by{' '}
-    <a href="https://dantecalderon.dev">Dante Calderon</a>
+    <a
+      href="https://www.gatsbyjs.org"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      Gatsby
+    </a>{' '}
+    by{' '}
+    <a
+      href="https://dantecalderon.dev"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      Dante Calderon
+    </a>
   </FooterWrapper>
 )
 
