@@ -22,20 +22,17 @@ server.post('/upload', function uploadAndGetTags(req, res) {
   form.keepExtensions = true
 
   let tags = {}
+  let error = false
   form.on('file', (field, file) => {
     console.log(file)
     if (!isValidFile(file)) {
       logger.error(`The file hasn't an correct type or extension.`)
-      return
+      return (error = true)
     }
 
     const fileBuffer = readFileSync(file.path)
-
-    let baseTags = getTags(fileBuffer)
-
-    if (!baseTags) return null
-
-    console.log(typeof baseTags)
+    const baseTags = getTags(fileBuffer)
+    if (!baseTags) return (error = true)
 
     console.log('Tags: ', baseTags)
     const image = baseTags.image
@@ -47,15 +44,24 @@ server.post('/upload', function uploadAndGetTags(req, res) {
     const parsedData = parseDataFromAudio(baseTags)
     tags = {
       id: path.basename(file.path), // fileId to update
-      ...parsedData
-      // image: imagebase64
+      ...parsedData,
+      image: imagebase64
     }
     console.log(`Los tags son: `)
     console.log(tags)
   })
+
   form.on('end', () => {
-    res.json(tags)
+    console.log('Hubo error?: ', error)
+    if (error) {
+      res.status(409).json({
+        error: 'Error uploading file, please verify that the file is correct.'
+      })
+    } else {
+      res.json(tags)
+    }
   })
+
   form.parse(req)
 })
 

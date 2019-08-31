@@ -1,3 +1,5 @@
+'use strict'
+
 const _ = require('lodash')
 const { tagID3Names } = require('./constants')
 
@@ -20,17 +22,17 @@ function parseDataFromAudio(objectFile) {
     'album',
     'year',
     'genre',
-    'trackNumber',
+    'trackNumber'
     // 'image',
   ])
 
   // return objectFile
   return {
     ...fileID3Data,
-    ...fileData,
+    ...fileData
   }
 }
 
 module.exports = {
-  parseDataFromAudio,
+  parseDataFromAudio
 }
