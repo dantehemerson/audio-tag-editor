@@ -1,0 +1,5 @@
+language: node_js
+env:
+  - TEST_DIR=server
+  - TEST_DIR=web
+script: cd $TEST_DIR && yarn && yarn test
