@@ -84,6 +84,13 @@ class Upload extends Component {
     }
   }
 
+  clearUpload = () => {
+    this.setState({
+      successfullUploaded: false,
+      uploading: false
+    })
+  }
+
   sendRequest = file => {
     return new Promise((resolve, reject) => {
       const req = new XMLHttpRequest()
@@ -107,7 +114,13 @@ class Upload extends Component {
       })
 
       req.onload = function onload() {
-        this.props.handleUploaded(JSON.parse(req.response))
+        const body = JSON.parse(req.response)
+        if ([409, 500, 404, 400].find(item => req.status === item) !== undefined) {
+          alert(body.error)
+          this.clearUpload()
+        } else {
+          this.props.handleUploaded(body, req.status)
+        }
       }.bind(this)
 
       req.upload.addEventListener('error', event => {
@@ -135,8 +148,7 @@ class Upload extends Component {
             alt="done"
             src="baseline-check_circle_outline-24px.svg"
             style={{
-              opacity:
-                uploadProgress && uploadProgress.state === 'done' ? 0.5 : 0
+              opacity: uploadProgress && uploadProgress.state === 'done' ? 0.5 : 0
             }}
           />
         </ProgressWrapper>
@@ -147,10 +159,7 @@ class Upload extends Component {
   render() {
     return (
       <Container>
-        <Dropzone
-          onFilesAdded={this.onFilesAdded}
-          disabled={this.state.uploading || this.state.successfullUploaded}
-        />
+        <Dropzone onFilesAdded={this.onFilesAdded} disabled={this.state.uploading || this.state.successfullUploaded} />
         <Files>
           {this.state.files.map(file => {
             return (

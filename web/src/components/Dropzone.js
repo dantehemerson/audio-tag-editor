@@ -31,7 +31,9 @@ export default class Dropzone extends React.Component {
   }
 
   openFileDialog = () => {
-    if (this.props.disabled) return
+    if (this.props.disabled) {
+      return
+    }
     this.fileInputRef.current.click()
   }
 
@@ -83,12 +85,7 @@ export default class Dropzone extends React.Component {
         onClick={this.openFileDialog}
         style={{ cursor: this.props.disabled ? 'default' : 'pointer' }}
       >
-        <FileInput
-          ref={this.fileInputRef}
-          type="file"
-          accept=".mp3"
-          onChange={this.onFilesAdded}
-        />
+        <FileInput ref={this.fileInputRef} type="file" accept=".mp3" onChange={this.onFilesAdded} />
         <Icon type="cloud-upload" style={{ fontSize: '34px' }} />
         <span>Upload File</span>
       </Container>

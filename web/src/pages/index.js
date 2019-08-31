@@ -18,8 +18,7 @@ class IndexPage extends React.Component {
     this.setState({ apiUrl: this.props.data.site.siteMetadata.env.apiUrl })
   }
 
-  handleUploaded = tags => {
-    console.log(`Tags are: `, tags)
+  handleUploaded = (tags, status = 200) => {
     // After song is uploaded the next step is edit.
     this.setState({ stepper: STEPPER.EDIT, tags })
   }
@@ -34,22 +33,11 @@ class IndexPage extends React.Component {
   renderStep() {
     switch (this.state.stepper) {
       case STEPPER.EDIT:
-        return (
-          <Edit
-            apiUrl={this.state.apiUrl}
-            tags={this.state.tags}
-            handleEdited={this.handleEdited}
-          />
-        )
+        return <Edit apiUrl={this.state.apiUrl} tags={this.state.tags} handleEdited={this.handleEdited} />
       case STEPPER.DOWNLOAD:
         return <Download downloadUrl={this.state.downloadUrl} />
       default:
-        return (
-          <Upload
-            apiUrl={this.state.apiUrl}
-            handleUploaded={this.handleUploaded}
-          />
-        )
+        return <Upload apiUrl={this.state.apiUrl} handleUploaded={this.handleUploaded} />
     }
   }
 
