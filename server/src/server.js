@@ -1,5 +1,7 @@
 const express = require('express')
 const cors = require('cors')
+const path = require('path')
+const logger = require('./lib/logger')
 const { readFileSync, existsSync } = require('fs')
 const IncomingForm = require('formidable').IncomingForm
 const { getTags, saveFile, updateTags } = require('./lib/audio')
@@ -17,16 +19,28 @@ server.post('/upload', function uploadAndGetTags(req, res) {
   const form = new IncomingForm()
   let tags = {}
   form.on('file', (field, file) => {
+    if (path.extname(file.name) !== '.mp3') {
+      logger.error(`The file hasn't mp3 extension.`)
+      return null
+    }
     const fileBuffer = readFileSync(file.path)
     const fileId = saveFile(fileBuffer)
-    const t = getTags(fileBuffer)
-    const image = t.image
+    let baseTags = undefined
+
+    baseTags = getTags(fileBuffer)
+
+    if (!baseTags) return null
+
+    console.log(typeof baseTags)
+
+    console.log('Tags: ', baseTags)
+    const image = baseTags.image
     let imagebase64 = undefined
     if (image) {
       imagebase64 = image.imageBuffer.toString('base64')
     }
 
-    const parsedData = parseDataFromAudio(t)
+    const parsedData = parseDataFromAudio(baseTags)
     tags = {
       id: fileId, // fileId to update
       ...parsedData,

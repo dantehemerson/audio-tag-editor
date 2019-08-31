@@ -2,11 +2,7 @@ const { writeFileSync } = require('fs')
 const NodeID3 = require('node-id3')
 
 function getTags(fileBuffer) {
-  try {
-    return NodeID3.read(fileBuffer)
-  } catch (e) {
-    console.log(e)
-  }
+  return NodeID3.read(fileBuffer)
 }
 
 function updateTags(fileBuffer, tags) {
@@ -33,5 +29,5 @@ function saveFile(buffer) {
 module.exports = {
   getTags,
   updateTags,
-  saveFile,
+  saveFile
 }

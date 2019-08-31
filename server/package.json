@@ -16,7 +16,8 @@
     "formidable": "^1.2.1",
     "lodash": "^4.17.11",
     "node-id3": "^0.1.7",
-    "slug": "^1.1.0"
+    "slug": "^1.1.0",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "nodemon": "1.19.1"
