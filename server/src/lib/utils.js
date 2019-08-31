@@ -23,17 +23,17 @@ function getPathForFileId(fileId) {
   return `${os.tmpdir()}/${fileId}`
 }
 
-function generateUniqueId() {
-  return `edited-${new Date().toISOString()}`
+function generateUniqueFileId(extension = '.mp3') {
+  return `edited-${new Date().toISOString()}${extension}`
 }
 
-function generateUniqueFilePath(extension = '.mp3') {
-  return getPathForFileId(generateUniqueId() + extension)
+function generateUniqueFilePath() {
+  return getPathForFileId(generateUniqueFileId())
 }
 
 module.exports = {
   isValidFile,
   getPathForFileId,
-  generateUniqueId,
+  generateUniqueFileId,
   generateUniqueFilePath
 }

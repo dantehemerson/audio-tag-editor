@@ -47,8 +47,8 @@ server.post('/upload', function uploadAndGetTags(req, res, next) {
     const parsedData = parseDataFromAudio(baseTags)
     tags = {
       id: path.basename(file.path), // fileId to update
-      ...parsedData,
-      image: imagebase64
+      ...parsedData
+      // image: imagebase64
     }
     console.log(`Los tags son: `)
     console.log(tags)
@@ -61,7 +61,6 @@ server.post('/upload', function uploadAndGetTags(req, res, next) {
 
 server.post('/update/:id', function updateFileTags(req, res) {
   const body = req.body
-
   const fileId = req.params.id
 
   const tags = body.tags
@@ -74,12 +73,15 @@ server.post('/update/:id', function updateFileTags(req, res) {
 
   try {
     const file = readFileSync(getPathForFileId(fileId))
+    console.log('filesse', file)
     const fileBuffer = updateTags(file, tags)
     const fileDownloadId = saveFile(fileBuffer) // el id que se usara para descargar
+    console.log(file, fileId, fileDownloadId)
     res.json({
       id: fileDownloadId
     })
   } catch (e) {
+    console.error('Error: ', e)
     res.status(404).json({
       error: `File not exists.`
     })
