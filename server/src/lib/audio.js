@@ -17,9 +17,8 @@ function updateTags(fileBuffer, tags) {
 function saveFile(buffer) {
   const fileId = generateUniqueFileId()
   const filePath = getPathForFileId(fileId)
-  console.log('Idiso: ', filePath)
   try {
-    writeFileSync(getPathForFileId(fileId), buffer)
+    writeFileSync(filePath, buffer)
     return fileId
   } catch (e) {
     console.log(`Error on save file`, e)
