@@ -1,3 +1,5 @@
+'use strict'
+
 const { writeFileSync } = require('fs')
 const NodeID3 = require('node-id3')
 const { generateUniqueFileId, getPathForFileId } = require('../lib/utils')

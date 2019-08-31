@@ -1,3 +1,5 @@
+'use strict'
+
 const tagID3Names = {
   TIT2: 'title',
   TPE1: 'artist',

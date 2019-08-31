@@ -17,7 +17,7 @@ const server = express()
 server.use(cors(corsOptions))
 server.use(express.json())
 
-server.post('/upload', function uploadAndGetTags(req, res, next) {
+server.post('/upload', function uploadAndGetTags(req, res) {
   const form = new IncomingForm()
   form.keepExtensions = true
 
@@ -64,8 +64,8 @@ server.post('/update/:id', function updateFileTags(req, res) {
   const fileId = req.params.id
   const tags = body.tags
 
-  if (!tags) {
-    return res.json({
+  if (!tags || typeof tags !== 'object') {
+    return res.status(409).json({
       error: `No hay tags para actualizar.`
     })
   }
@@ -73,7 +73,7 @@ server.post('/update/:id', function updateFileTags(req, res) {
   try {
     const file = readFileSync(getPathForFileId(fileId))
     const fileBuffer = updateTags(file, tags)
-    const fileDownloadId = saveFile(fileBuffer) // el id que se usara para descargar
+    const fileDownloadId = saveFile(fileBuffer) // id to download
     res.json({
       id: fileDownloadId
     })
