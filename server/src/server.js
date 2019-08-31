@@ -62,10 +62,9 @@ server.post('/upload', function uploadAndGetTags(req, res, next) {
 server.post('/update/:id', function updateFileTags(req, res) {
   const body = req.body
   const fileId = req.params.id
-
   const tags = body.tags
+
   if (!tags) {
-    console.log(`No hay tags`)
     return res.json({
       error: `No hay tags para actualizar.`
     })
@@ -73,10 +72,8 @@ server.post('/update/:id', function updateFileTags(req, res) {
 
   try {
     const file = readFileSync(getPathForFileId(fileId))
-    console.log('filesse', file)
     const fileBuffer = updateTags(file, tags)
     const fileDownloadId = saveFile(fileBuffer) // el id que se usara para descargar
-    console.log(file, fileId, fileDownloadId)
     res.json({
       id: fileDownloadId
     })
