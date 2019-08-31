@@ -1,3 +1,5 @@
+'use strict'
+
 const express = require('express')
 const cors = require('cors')
 const path = require('path')
@@ -7,27 +9,29 @@ const IncomingForm = require('formidable').IncomingForm
 const { getTags, saveFile, updateTags } = require('./lib/audio')
 const { parseDataFromAudio } = require('./lib/parser')
 const { corsOptions } = require('./lib/constants')
-
-const PORT = process.env.PORT || 8080
+const config = require('./config')
+const { isValidFile } = require('./lib/utils')
 
 const server = express()
 
 server.use(cors(corsOptions))
 server.use(express.json())
 
-server.post('/upload', function uploadAndGetTags(req, res) {
+server.post('/upload', function uploadAndGetTags(req, res, next) {
   const form = new IncomingForm()
+  form.keepExtensions = true
+
   let tags = {}
   form.on('file', (field, file) => {
-    if (path.extname(file.name) !== '.mp3') {
-      logger.error(`The file hasn't mp3 extension.`)
-      return null
+    console.log('The file is: ')
+    console.log(file)
+    if (!isValidFile(file)) {
+      logger.error(`The file hasn't an correct type or extension.`)
+      return
     }
     const fileBuffer = readFileSync(file.path)
     const fileId = saveFile(fileBuffer)
-    let baseTags = undefined
-
-    baseTags = getTags(fileBuffer)
+    let baseTags = getTags(fileBuffer)
 
     if (!baseTags) return null
 
@@ -47,7 +51,7 @@ server.post('/upload', function uploadAndGetTags(req, res) {
       image: imagebase64
     }
     console.log(`Los tags son: `)
-    console.log(tags)
+    //console.log(tags)
   })
   form.on('end', () => {
     res.json(tags)
@@ -101,6 +105,6 @@ server.get('/download/:id', function downloadFile(req, res) {
   }
 })
 
-server.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`)
+server.listen(config.PORT, () => {
+  console.log(`Listening on port ${config.PORT}`)
 })

@@ -13,4 +13,6 @@ const logger = winston.createLogger({
   ]
 })
 
+logger.info('The logger init successfull')
+
 module.exports = logger

@@ -12,7 +12,13 @@ const corsOptions = {
   optionsSuccessStatus: 200
 }
 
+const supportedExtensions = ['.mp3']
+
+const supportedFileTypes = ['audio/mp3']
+
 module.exports = {
   tagID3Names,
-  corsOptions
+  corsOptions,
+  supportedExtensions,
+  supportedFileTypes
 }
