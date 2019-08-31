@@ -10,7 +10,7 @@ const { getTags, saveFile, updateTags } = require('./lib/audio')
 const { parseDataFromAudio } = require('./lib/parser')
 const { corsOptions } = require('./lib/constants')
 const config = require('./config')
-const { isValidFile } = require('./lib/utils')
+const { isValidFile, getPathForFileId } = require('./lib/utils')
 
 const server = express()
 
@@ -23,14 +23,14 @@ server.post('/upload', function uploadAndGetTags(req, res, next) {
 
   let tags = {}
   form.on('file', (field, file) => {
-    console.log('The file is: ')
     console.log(file)
     if (!isValidFile(file)) {
       logger.error(`The file hasn't an correct type or extension.`)
       return
     }
+
     const fileBuffer = readFileSync(file.path)
-    const fileId = saveFile(fileBuffer)
+
     let baseTags = getTags(fileBuffer)
 
     if (!baseTags) return null
@@ -46,12 +46,12 @@ server.post('/upload', function uploadAndGetTags(req, res, next) {
 
     const parsedData = parseDataFromAudio(baseTags)
     tags = {
-      id: fileId, // fileId to update
+      id: path.basename(file.path), // fileId to update
       ...parsedData,
       image: imagebase64
     }
     console.log(`Los tags son: `)
-    //console.log(tags)
+    console.log(tags)
   })
   form.on('end', () => {
     res.json(tags)
@@ -62,12 +62,7 @@ server.post('/upload', function uploadAndGetTags(req, res, next) {
 server.post('/update/:id', function updateFileTags(req, res) {
   const body = req.body
 
-  const filename = req.params.id
-  if (!filename) {
-    return res.json({
-      error: `Id not found`
-    })
-  }
+  const fileId = req.params.id
 
   const tags = body.tags
   if (!tags) {
@@ -78,15 +73,14 @@ server.post('/update/:id', function updateFileTags(req, res) {
   }
 
   try {
-    const file = readFileSync(`./bucket/${filename}.mp3`)
-    console.log(file)
+    const file = readFileSync(getPathForFileId(fileId))
     const fileBuffer = updateTags(file, tags)
-    const fileId = saveFile(fileBuffer) // el id que se usara para descargar
+    const fileDownloadId = saveFile(fileBuffer) // el id que se usara para descargar
     res.json({
-      id: fileId
+      id: fileDownloadId
     })
   } catch (e) {
-    res.json({
+    res.status(404).json({
       error: `File not exists.`
     })
   }
@@ -94,10 +88,10 @@ server.post('/update/:id', function updateFileTags(req, res) {
 
 server.get('/download/:id', function downloadFile(req, res) {
   const fileId = req.params.id
-  const filepath = `./bucket/${fileId}.mp3`
-  console.log(`The filepath to download is ${filepath}`)
-  if (existsSync(filepath)) {
-    res.download(`./bucket/${fileId}.mp3`)
+  const filePath = getPathForFileId(fileId)
+  console.log(`The filepath to download is ${filePath}`)
+  if (existsSync(filePath)) {
+    res.download(filePath)
   } else {
     res.status(404).json({
       message: `File not found.`

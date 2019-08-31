@@ -1,5 +1,6 @@
 const { writeFileSync } = require('fs')
 const NodeID3 = require('node-id3')
+const { generateUniqueFilePath } = require('../lib/utils')
 
 function getTags(fileBuffer) {
   return NodeID3.read(fileBuffer)
@@ -14,8 +15,7 @@ function updateTags(fileBuffer, tags) {
 }
 
 function saveFile(buffer) {
-  const id = `dxnt-${new Date().toISOString()}`
-  filename = `./bucket/${id}.mp3`
+  const filename = generateUniqueFilePath()
   try {
     writeFileSync(filename, buffer)
     return id

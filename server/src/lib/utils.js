@@ -2,6 +2,8 @@
 
 const _ = require('lodash')
 const path = require('path')
+const os = require('os')
+
 const { supportedExtensions, supportedFileTypes } = require('./constants')
 
 function isValidFile(file) {
@@ -17,6 +19,21 @@ function isValidFile(file) {
   return isValidExtension && isValidType
 }
 
+function getPathForFileId(fileId) {
+  return `${os.tmpdir()}/${fileId}`
+}
+
+function generateUniqueId() {
+  return `edited-${new Date().toISOString()}`
+}
+
+function generateUniqueFilePath(extension = '.mp3') {
+  return getPathForFileId(generateUniqueId() + extension)
+}
+
 module.exports = {
-  isValidFile
+  isValidFile,
+  getPathForFileId,
+  generateUniqueId,
+  generateUniqueFilePath
 }
